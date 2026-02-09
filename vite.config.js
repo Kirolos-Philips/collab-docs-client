@@ -13,5 +13,8 @@ export default defineConfig({
       },
       '/media': 'http://localhost:8000'
     }
+  },
+  build: {
+    sourcemap: true,
   }
 })

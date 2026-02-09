@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { useAuth } from './contexts/AuthContext';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
+import Dashboard from './pages/Dashboard';
 
 // Protected Route Component
 const ProtectedRoute = ({ children }) => {
@@ -33,9 +34,7 @@ function App() {
         {/* Protected Routes */}
         <Route path="/" element={
           <ProtectedRoute>
-            <div className="dashboard-placeholder">
-              <h1>Dashboard coming soon in SP 2!</h1>
-            </div>
+            <Dashboard />
           </ProtectedRoute>
         } />
 
