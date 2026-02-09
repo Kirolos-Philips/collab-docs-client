@@ -67,7 +67,11 @@ const Dashboard = () => {
                 <div className="user-nav">
                     <div className="user-info-stack">
                         <div className="avatar">
-                            <img src={`https://ui-avatars.com/api/?name=${user?.username}&background=random`} alt="avatar" />
+                            {user?.avatar_url ? (
+                                <img src={user.avatar_url} alt="avatar" />
+                            ) : (
+                                <img src={`https://ui-avatars.com/api/?name=${user?.username}&background=random&rounded=true&bold=true`} alt="avatar" />
+                            )}
                         </div>
                         <div className="user-text">
                             <span className="name">{user?.username}</span>
