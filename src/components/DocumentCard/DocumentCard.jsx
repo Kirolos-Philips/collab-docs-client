@@ -1,4 +1,6 @@
-import { FileText, Calendar, User, Trash2, MoreVertical } from 'lucide-react';
+import React from 'react';
+import { FileText, Trash2 } from 'lucide-react';
+import './DocumentCard.css';
 
 const DocumentCard = ({ document, onClick, onDelete }) => {
     const formatDate = (dateString) => {

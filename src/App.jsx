@@ -1,9 +1,9 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { useAuth } from './contexts/AuthContext';
-import Login from './pages/Login';
-import Signup from './pages/Signup';
-import Dashboard from './pages/Dashboard';
+import Login from './pages/Login/Login';
+import Signup from './pages/Signup/Signup';
+import Dashboard from './pages/Dashboard/Dashboard';
 
 // Protected Route Component
 const ProtectedRoute = ({ children }) => {
@@ -35,6 +35,14 @@ function App() {
         <Route path="/" element={
           <ProtectedRoute>
             <Dashboard />
+          </ProtectedRoute>
+        } />
+
+        <Route path="/editor/:id" element={
+          <ProtectedRoute>
+            <div className="dashboard-placeholder">
+              <h1>Editor coming soon in SP 3!</h1>
+            </div>
           </ProtectedRoute>
         } />
 

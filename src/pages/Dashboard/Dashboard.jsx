@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { useAuth } from '../contexts/AuthContext';
-import API from '../api/client';
-import DocumentCard from '../components/DocumentCard';
-import { Plus, Loader2, FileX, LogOut } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { Plus, FileX, Loader2 } from 'lucide-react';
+import { useAuth } from '../../contexts/AuthContext';
+import API from '../../api/client';
+import DocumentCard from '../../components/DocumentCard/DocumentCard';
+import Navbar from '../../components/Navbar/Navbar';
+import Toast from '../../components/Toast/Toast';
+import Modal from '../../components/Modal/Modal';
+import styles from './Dashboard.module.css';
 
 const Dashboard = () => {
     const [documents, setDocuments] = useState([]);
@@ -80,10 +84,6 @@ const Dashboard = () => {
         }
     };
 
-    const handleOpenDocument = (id) => {
-        navigate(`/editor/${id}`);
-    };
-
     if (loading) {
         return (
             <div className="loading-screen">
@@ -93,32 +93,9 @@ const Dashboard = () => {
     }
 
     return (
-        <div className="app-layout">
-            {/* Toast Notification */}
-            {notification && (
-                <div className={`toast ${notification.type}`}>
-                    {notification.message}
-                </div>
-            )}
-            <nav className="navbar">
-                <div className="brand">Sync</div>
-                <div className="user-nav">
-                    <div className="user-info-stack">
-                        <div className="avatar">
-                            {user?.avatar_url ? (
-                                <img src={user.avatar_url} alt="avatar" />
-                            ) : (
-                                <img src={`https://ui-avatars.com/api/?name=${user?.username}&background=random&rounded=true&bold=true`} alt="avatar" />
-                            )}
-                        </div>
-                        <div className="user-text">
-                            <span className="name">{user?.username}</span>
-                            <span className="email">{user?.email || `${user?.username}@sync.com`}</span>
-                        </div>
-                    </div>
-                    <button onClick={logout} className="nav-logout-btn">Logout</button>
-                </div>
-            </nav>
+        <div className="dashboard-page">
+            <Toast notification={notification} />
+            <Navbar user={user} logout={logout} />
 
             <div className="dashboard-container">
                 <header className="page-header">
@@ -126,10 +103,7 @@ const Dashboard = () => {
                         <h1>My Documents</h1>
                         <p>Manage your projects and collaborations.</p>
                     </div>
-                    <button
-                        className="create-btn"
-                        onClick={() => setShowModal(true)}
-                    >
+                    <button className="create-btn" onClick={() => setShowModal(true)}>
                         <Plus size={20} />
                         New Document
                     </button>
@@ -141,7 +115,7 @@ const Dashboard = () => {
                             <DocumentCard
                                 key={doc.id}
                                 document={doc}
-                                onClick={handleOpenDocument}
+                                onClick={(id) => navigate(`/editor/${id}`)}
                                 onDelete={handleDeleteRequest}
                             />
                         ))}
@@ -160,51 +134,49 @@ const Dashboard = () => {
             </div>
 
             {/* Create Document Modal */}
-            {showModal && (
-                <div className="modal-overlay">
-                    <div className="modal-card">
-                        <h3>Create New Document</h3>
-                        <p>Enter a name for your new collaborative document.</p>
-                        <form onSubmit={handleCreateSubmit}>
-                            <input
-                                type="text"
-                                value={newTitle}
-                                onChange={(e) => setNewTitle(e.target.value)}
-                                placeholder="e.g. Project Specs"
-                                autoFocus
-                                required
-                            />
-                            <div className="modal-actions">
-                                <button type="button" className="cancel-btn" onClick={() => setShowModal(false)}>Cancel</button>
-                                <button type="submit" className="confirm-btn" disabled={creating}>
-                                    {creating ? <Loader2 className="spinner" size={18} /> : 'Create'}
-                                </button>
-                            </div>
-                        </form>
+            <Modal
+                show={showModal}
+                title="Create New Document"
+                onClose={() => setShowModal(false)}
+            >
+                <p>Enter a name for your new collaborative document.</p>
+                <form onSubmit={handleCreateSubmit}>
+                    <input
+                        type="text"
+                        value={newTitle}
+                        onChange={(e) => setNewTitle(e.target.value)}
+                        placeholder="e.g. Project Specs"
+                        autoFocus
+                        required
+                    />
+                    <div className="modal-actions">
+                        <button type="button" className="cancel-btn" onClick={() => setShowModal(false)}>Cancel</button>
+                        <button type="submit" className="confirm-btn" disabled={creating}>
+                            {creating ? <Loader2 className="spinner" size={18} /> : 'Create'}
+                        </button>
                     </div>
-                </div>
-            )}
+                </form>
+            </Modal>
 
             {/* Delete Confirmation Modal */}
-            {showDeleteModal && (
-                <div className="modal-overlay">
-                    <div className="modal-card delete-modal">
-                        <h3>Delete Document</h3>
-                        <p>Are you sure you want to delete <strong>"{docToDelete?.title}"</strong>? This action cannot be undone.</p>
-                        <div className="modal-actions">
-                            <button type="button" className="cancel-btn" onClick={() => setShowDeleteModal(false)}>Cancel</button>
-                            <button
-                                type="button"
-                                className="confirm-btn danger"
-                                onClick={confirmDelete}
-                                disabled={deleting}
-                            >
-                                {deleting ? <Loader2 className="spinner" size={18} /> : 'Delete Document'}
-                            </button>
-                        </div>
-                    </div>
+            <Modal
+                show={showDeleteModal}
+                title="Delete Document"
+                onClose={() => setShowDeleteModal(false)}
+            >
+                <p>Are you sure you want to delete <strong>"{docToDelete?.title}"</strong>? This action cannot be undone.</p>
+                <div className="modal-actions">
+                    <button type="button" className="cancel-btn" onClick={() => setShowDeleteModal(false)}>Cancel</button>
+                    <button
+                        type="button"
+                        className="confirm-btn danger"
+                        onClick={confirmDelete}
+                        disabled={deleting}
+                    >
+                        {deleting ? <Loader2 className="spinner" size={18} /> : 'Delete Document'}
+                    </button>
                 </div>
-            )}
+            </Modal>
         </div>
     );
 };

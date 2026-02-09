@@ -1,0 +1,78 @@
+.dashboardContainer {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 48px 40px;
+}
+
+.pageHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 40px;
+}
+
+.headerText h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-main);
+    margin-bottom: 8px;
+}
+
+.headerText p {
+    color: var(--text-muted);
+    font-size: 1rem;
+}
+
+.createBtn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.1);
+    transition: all 0.2s;
+}
+
+.createBtn:hover {
+    background: var(--primary-hover);
+    transform: translateY(-1px);
+}
+
+.documentsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 24px;
+}
+
+/* Empty State */
+.emptyState {
+    text-align: center;
+    padding: 80px 20px;
+    background: white;
+    border: 2px dashed var(--border);
+    border-radius: 16px;
+}
+
+.emptyState h3 {
+    margin-top: 16px;
+    font-size: 1.25rem;
+    color: var(--text-main);
+}
+
+.emptyState p {
+    color: var(--text-muted);
+    margin-bottom: 24px;
+}
+
+.confirmBtnDanger {
+    background: #ef4444 !important;
+}
+
+.confirmBtnDanger:hover {
+    background: #dc2626 !important;
+}
