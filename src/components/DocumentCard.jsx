@@ -1,14 +1,18 @@
-import React from 'react';
-import { FileText, Calendar, User, ChevronRight } from 'lucide-react';
+import { FileText, Calendar, User, Trash2, MoreVertical } from 'lucide-react';
 
-const DocumentCard = ({ document, onClick }) => {
+const DocumentCard = ({ document, onClick, onDelete }) => {
     const formatDate = (dateString) => {
-        const date = new Date(dateString);
-        return new Intl.DateTimeFormat('en-US', {
+        if (!dateString) return 'Never';
+        return new Date(dateString).toLocaleDateString('en-US', {
             month: 'short',
             day: 'numeric',
             year: 'numeric'
-        }).format(date);
+        });
+    };
+
+    const handleDelete = (e) => {
+        e.stopPropagation();
+        onDelete(document);
     };
 
     return (
@@ -24,6 +28,9 @@ const DocumentCard = ({ document, onClick }) => {
                         {document.content?.length > 60 ? '...' : ''}
                     </p>
                 </div>
+                <button className="card-delete-btn" onClick={handleDelete} title="Delete document">
+                    <Trash2 size={18} />
+                </button>
             </div>
 
             <div className="card-divider"></div>

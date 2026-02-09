@@ -12,6 +12,12 @@ const Dashboard = () => {
     const [showModal, setShowModal] = useState(false);
     const [newTitle, setNewTitle] = useState('');
 
+    // Deletion states
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [docToDelete, setDocToDelete] = useState(null);
+    const [deleting, setDeleting] = useState(false);
+    const [notification, setNotification] = useState(null);
+
     const { user, logout } = useAuth();
     const navigate = useNavigate();
 
@@ -40,11 +46,37 @@ const Dashboard = () => {
             navigate(`/editor/${newDoc.id}`);
         } catch (error) {
             console.error('Failed to create document:', error);
-            alert('Failed to create document. Please try again.');
+            setNotification({ type: 'error', message: error.message || 'Failed to create document.' });
+            setTimeout(() => setNotification(null), 4000);
         } finally {
             setCreating(false);
             setShowModal(false);
             setNewTitle('');
+        }
+    };
+
+    const handleDeleteRequest = (doc) => {
+        setDocToDelete(doc);
+        setShowDeleteModal(true);
+    };
+
+    const confirmDelete = async () => {
+        if (!docToDelete) return;
+
+        setDeleting(true);
+        try {
+            await API.delete(`/documents/${docToDelete.id}`);
+            setDocuments(prev => prev.filter(d => d.id !== docToDelete.id));
+            setShowDeleteModal(false);
+            setDocToDelete(null);
+            setNotification({ type: 'success', message: 'Document deleted successfully!' });
+            setTimeout(() => setNotification(null), 3000);
+        } catch (error) {
+            console.error('Failed to delete document:', error);
+            setNotification({ type: 'error', message: error.message || 'Failed to delete document.' });
+            setTimeout(() => setNotification(null), 4000);
+        } finally {
+            setDeleting(false);
         }
     };
 
@@ -62,6 +94,12 @@ const Dashboard = () => {
 
     return (
         <div className="app-layout">
+            {/* Toast Notification */}
+            {notification && (
+                <div className={`toast ${notification.type}`}>
+                    {notification.message}
+                </div>
+            )}
             <nav className="navbar">
                 <div className="brand">Sync</div>
                 <div className="user-nav">
@@ -104,6 +142,7 @@ const Dashboard = () => {
                                 key={doc.id}
                                 document={doc}
                                 onClick={handleOpenDocument}
+                                onDelete={handleDeleteRequest}
                             />
                         ))}
                     </div>
@@ -142,6 +181,27 @@ const Dashboard = () => {
                                 </button>
                             </div>
                         </form>
+                    </div>
+                </div>
+            )}
+
+            {/* Delete Confirmation Modal */}
+            {showDeleteModal && (
+                <div className="modal-overlay">
+                    <div className="modal-card delete-modal">
+                        <h3>Delete Document</h3>
+                        <p>Are you sure you want to delete <strong>"{docToDelete?.title}"</strong>? This action cannot be undone.</p>
+                        <div className="modal-actions">
+                            <button type="button" className="cancel-btn" onClick={() => setShowDeleteModal(false)}>Cancel</button>
+                            <button
+                                type="button"
+                                className="confirm-btn danger"
+                                onClick={confirmDelete}
+                                disabled={deleting}
+                            >
+                                {deleting ? <Loader2 className="spinner" size={18} /> : 'Delete Document'}
+                            </button>
+                        </div>
                     </div>
                 </div>
             )}

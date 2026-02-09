@@ -16,8 +16,11 @@ const API = {
         if (response.status === 401) {
             localStorage.removeItem('access_token');
             localStorage.removeItem('user_id');
-            // If not on login page, we might want to redirect, 
-            // but we'll let AuthContext handle the state change.
+            return null;
+        }
+
+        // Handle 204 No Content or empty responses
+        if (response.status === 204 || response.headers.get('content-length') === '0') {
             return null;
         }
 
@@ -26,7 +29,12 @@ const API = {
             throw new Error(error.detail || 'Request failed');
         }
 
-        return response.json();
+        const contentType = response.headers.get('content-type');
+        if (contentType && contentType.includes('application/json')) {
+            return response.json();
+        }
+
+        return null;
     },
 
     get(url) {
