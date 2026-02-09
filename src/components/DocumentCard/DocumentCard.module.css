@@ -1,4 +1,4 @@
-.document-card {
+.documentCard {
     background: white;
     border: 1px solid var(--border);
     border-radius: 12px;
@@ -10,18 +10,18 @@
     cursor: pointer;
 }
 
-.document-card:hover {
+.documentCard:hover {
     border-color: #cbd5e1;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
 }
 
-.card-top {
+.cardTop {
     display: flex;
     align-items: flex-start;
     gap: 16px;
 }
 
-.card-icon {
+.cardIcon {
     width: 44px;
     height: 44px;
     background: #f0f7ff;
@@ -33,14 +33,14 @@
     flex-shrink: 0;
 }
 
-.card-title-group h3 {
+.cardTitleGroup h3 {
     font-size: 1.1rem;
     font-weight: 700;
     color: var(--text-main);
     margin-bottom: 4px;
 }
 
-.card-snippet {
+.cardSnippet {
     font-size: 0.85rem;
     color: var(--text-muted);
     display: -webkit-box;
@@ -51,7 +51,7 @@
     min-height: 2.4em;
 }
 
-.card-delete-btn {
+.cardDeleteBtn {
     padding: 8px;
     background: transparent;
     border: none;
@@ -66,22 +66,22 @@
     margin-left: auto;
 }
 
-.document-card:hover .card-delete-btn {
+.documentCard:hover .cardDeleteBtn {
     opacity: 1;
 }
 
-.card-delete-btn:hover {
+.cardDeleteBtn:hover {
     background: #fef2f2;
     color: #ef4444;
 }
 
-.card-divider {
+.cardDivider {
     height: 1px;
     background: #f1f5f9;
     margin: 0 -24px;
 }
 
-.card-footer {
+.cardFooter {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -89,7 +89,7 @@
     color: var(--text-muted);
 }
 
-.member-badge {
+.memberBadge {
     background: #f1f5f9;
     padding: 4px 8px;
     border-radius: 4px;

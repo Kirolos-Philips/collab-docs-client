@@ -1,5 +1,5 @@
 /* Shared Auth Styles */
-.auth-container {
+.authContainer {
     min-height: 100vh;
     display: flex;
     align-items: center;
@@ -8,7 +8,7 @@
     background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
 }
 
-.auth-card {
+.authCard {
     background: var(--bg-card);
     padding: 40px;
     border-radius: 16px;
@@ -17,12 +17,12 @@
     max-width: 440px;
 }
 
-.auth-header {
+.authHeader {
     text-align: center;
     margin-bottom: 32px;
 }
 
-.logo-icon {
+.logoIcon {
     width: 56px;
     height: 56px;
     background: var(--primary);
@@ -34,33 +34,33 @@
     margin: 0 auto 16px;
 }
 
-.auth-header h1 {
+.authHeader h1 {
     font-size: 1.5rem;
     font-weight: 800;
     margin-bottom: 8px;
 }
 
-.auth-header p {
+.authHeader p {
     color: var(--text-muted);
     font-size: 0.9rem;
 }
 
-.input-group {
+.inputGroup {
     margin-bottom: 20px;
 }
 
-.input-group label {
+.inputGroup label {
     display: block;
     font-size: 0.85rem;
     font-weight: 600;
     margin-bottom: 8px;
 }
 
-.input-with-icon {
+.inputWithIcon {
     position: relative;
 }
 
-.input-with-icon .icon {
+.inputWithIcon .icon {
     position: absolute;
     left: 12px;
     top: 50%;
@@ -68,7 +68,7 @@
     color: var(--text-muted);
 }
 
-.input-with-icon input {
+.inputWithIcon input {
     width: 100%;
     padding: 10px 12px 10px 40px;
     border: 1px solid var(--border);
@@ -77,13 +77,13 @@
     transition: all 0.2s;
 }
 
-.input-with-icon input:focus {
+.inputWithIcon input:focus {
     outline: none;
     border-color: var(--primary);
     box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
 }
 
-.auth-error {
+.authError {
     background: #fef2f2;
     color: var(--error);
     padding: 12px;
@@ -93,7 +93,7 @@
     border: 1px solid #fee2e2;
 }
 
-.auth-btn {
+.authBtn {
     width: 100%;
     padding: 12px;
     background: var(--primary);
@@ -110,28 +110,28 @@
     transition: background 0.2s;
 }
 
-.auth-btn:hover {
+.authBtn:hover {
     background: var(--primary-hover);
 }
 
-.auth-btn:disabled {
+.authBtn:disabled {
     opacity: 0.7;
     cursor: not-allowed;
 }
 
-.auth-footer {
+.authFooter {
     text-align: center;
     margin-top: 24px;
     font-size: 0.9rem;
     color: var(--text-muted);
 }
 
-.auth-footer a {
+.authFooter a {
     color: var(--primary);
     text-decoration: none;
     font-weight: 600;
 }
 
-.auth-footer a:hover {
+.authFooter a:hover {
     text-decoration: underline;
 }

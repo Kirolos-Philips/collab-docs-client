@@ -1,12 +1,12 @@
 import React from 'react';
-import './Modal.css';
+import s from './Modal.module.css';
 
 const Modal = ({ show, title, children, onClose }) => {
     if (!show) return null;
 
     return (
-        <div className="modal-overlay" onClick={onClose}>
-            <div className="modal-card" onClick={(e) => e.stopPropagation()}>
+        <div className={s.modalOverlay} onClick={onClose}>
+            <div className={s.modalCard} onClick={(e) => e.stopPropagation()}>
                 {title && <h3>{title}</h3>}
                 {children}
             </div>

@@ -18,13 +18,13 @@
     letter-spacing: -0.01em;
 }
 
-.user-nav {
+.userNav {
     display: flex;
     align-items: center;
     gap: 16px;
 }
 
-.user-info-stack {
+.userInfoStack {
     display: flex;
     align-items: center;
     gap: 12px;
@@ -50,24 +50,24 @@
     object-fit: cover;
 }
 
-.user-text {
+.userText {
     display: flex;
     flex-direction: column;
     line-height: 1.2;
 }
 
-.user-text .name {
+.userText .name {
     font-weight: 700;
     font-size: 0.9rem;
     color: var(--text-main);
 }
 
-.user-text .email {
+.userText .email {
     font-size: 0.75rem;
     color: var(--text-muted);
 }
 
-.nav-logout-btn {
+.navLogoutBtn {
     padding: 6px 12px;
     background: white;
     border: 1px solid var(--border);
@@ -78,6 +78,6 @@
     transition: all 0.2s;
 }
 
-.nav-logout-btn:hover {
+.navLogoutBtn:hover {
     background: #f1f5f9;
 }

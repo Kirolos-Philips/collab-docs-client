@@ -1,11 +1,11 @@
 import React from 'react';
-import './Toast.css';
+import s from './Toast.module.css';
 
 const Toast = ({ notification }) => {
     if (!notification) return null;
 
     return (
-        <div className={`toast ${notification.type}`}>
+        <div className={`${s.toast} ${s[notification.type]}`}>
             {notification.message}
         </div>
     );

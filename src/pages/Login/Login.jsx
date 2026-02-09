@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { LogIn, Loader2, Mail, Lock } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
-import styles from './Login.module.css';
+import s from './Login.module.css';
 
 const Login = () => {
     const [username, setUsername] = useState('');
@@ -29,10 +29,10 @@ const Login = () => {
     };
 
     return (
-        <div className={styles.authContainer}>
-            <div className={styles.authCard}>
-                <div className={styles.authHeader}>
-                    <div className={styles.logoIcon}>
+        <div className={s.authContainer}>
+            <div className={s.authCard}>
+                <div className={s.authHeader}>
+                    <div className={s.logoIcon}>
                         <LogIn size={28} />
                     </div>
                     <h1>Welcome Back</h1>
@@ -40,12 +40,12 @@ const Login = () => {
                 </div>
 
                 <form onSubmit={handleSubmit}>
-                    {error && <div className={styles.authError}>{error}</div>}
+                    {error && <div className={s.authError}>{error}</div>}
 
-                    <div className={styles.inputGroup}>
+                    <div className={s.inputGroup}>
                         <label htmlFor="username">Username</label>
-                        <div className={styles.inputWithIcon}>
-                            <Mail className={styles.icon} size={18} />
+                        <div className={s.inputWithIcon}>
+                            <Mail className={s.icon} size={18} />
                             <input
                                 id="username"
                                 type="text"
@@ -57,10 +57,10 @@ const Login = () => {
                         </div>
                     </div>
 
-                    <div className={styles.inputGroup}>
+                    <div className={s.inputGroup}>
                         <label htmlFor="password">Password</label>
-                        <div className={styles.inputWithIcon}>
-                            <Lock className={styles.icon} size={18} />
+                        <div className={s.inputWithIcon}>
+                            <Lock className={s.icon} size={18} />
                             <input
                                 id="password"
                                 type="password"
@@ -72,12 +72,12 @@ const Login = () => {
                         </div>
                     </div>
 
-                    <button type="submit" className={styles.authBtn} disabled={loading}>
-                        {loading ? <Loader2 className={styles.spinner} size={20} /> : 'Login'}
+                    <button type="submit" className={s.authBtn} disabled={loading}>
+                        {loading ? <Loader2 className={s.spinner} size={20} /> : 'Login'}
                     </button>
                 </form>
 
-                <div className={styles.authFooter}>
+                <div className={s.authFooter}>
                     Don't have an account? <Link to="/signup">Sign up</Link>
                 </div>
             </div>

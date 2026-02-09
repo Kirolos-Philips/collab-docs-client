@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { UserPlus, Loader2, Mail, Lock, User } from 'lucide-react';
 import API from '../../api/client';
-import styles from './Signup.module.css';
+import s from './Signup.module.css';
 
 const Signup = () => {
     const [username, setUsername] = useState('');
@@ -29,10 +29,10 @@ const Signup = () => {
     };
 
     return (
-        <div className={styles.authContainer}>
-            <div className={styles.authCard}>
-                <div className={styles.authHeader}>
-                    <div className={styles.logoIcon}>
+        <div className={s.authContainer}>
+            <div className={s.authCard}>
+                <div className={s.authHeader}>
+                    <div className={s.logoIcon}>
                         <UserPlus size={28} />
                     </div>
                     <h1>Create Account</h1>
@@ -40,12 +40,12 @@ const Signup = () => {
                 </div>
 
                 <form onSubmit={handleSubmit}>
-                    {error && <div className={styles.authError}>{error}</div>}
+                    {error && <div className={s.authError}>{error}</div>}
 
-                    <div className={styles.inputGroup}>
+                    <div className={s.inputGroup}>
                         <label htmlFor="username">Username</label>
-                        <div className={styles.inputWithIcon}>
-                            <User className={styles.icon} size={18} />
+                        <div className={s.inputWithIcon}>
+                            <User className={s.icon} size={18} />
                             <input
                                 id="username"
                                 type="text"
@@ -57,10 +57,10 @@ const Signup = () => {
                         </div>
                     </div>
 
-                    <div className={styles.inputGroup}>
+                    <div className={s.inputGroup}>
                         <label htmlFor="email">Email</label>
-                        <div className={styles.inputWithIcon}>
-                            <Mail className={styles.icon} size={18} />
+                        <div className={s.inputWithIcon}>
+                            <Mail className={s.icon} size={18} />
                             <input
                                 id="email"
                                 type="email"
@@ -72,10 +72,10 @@ const Signup = () => {
                         </div>
                     </div>
 
-                    <div className={styles.inputGroup}>
+                    <div className={s.inputGroup}>
                         <label htmlFor="password">Password</label>
-                        <div className={styles.inputWithIcon}>
-                            <Lock className={styles.icon} size={18} />
+                        <div className={s.inputWithIcon}>
+                            <Lock className={s.icon} size={18} />
                             <input
                                 id="password"
                                 type="password"
@@ -87,12 +87,12 @@ const Signup = () => {
                         </div>
                     </div>
 
-                    <button type="submit" className={styles.authBtn} disabled={loading}>
-                        {loading ? <Loader2 className={styles.spinner} size={20} /> : 'Create Account'}
+                    <button type="submit" className={s.authBtn} disabled={loading}>
+                        {loading ? <Loader2 className={s.spinner} size={20} /> : 'Create Account'}
                     </button>
                 </form>
 
-                <div className={styles.authFooter}>
+                <div className={s.authFooter}>
                     Already have an account? <Link to="/login">Login</Link>
                 </div>
             </div>

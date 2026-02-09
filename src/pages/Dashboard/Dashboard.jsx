@@ -7,7 +7,7 @@ import DocumentCard from '../../components/DocumentCard/DocumentCard';
 import Navbar from '../../components/Navbar/Navbar';
 import Toast from '../../components/Toast/Toast';
 import Modal from '../../components/Modal/Modal';
-import styles from './Dashboard.module.css';
+import s from './Dashboard.module.css';
 
 const Dashboard = () => {
     const [documents, setDocuments] = useState([]);
@@ -93,24 +93,24 @@ const Dashboard = () => {
     }
 
     return (
-        <div className="dashboard-page">
+        <div className="app-layout">
             <Toast notification={notification} />
             <Navbar user={user} logout={logout} />
 
-            <div className="dashboard-container">
-                <header className="page-header">
-                    <div className="header-text">
+            <div className={s.dashboardContainer}>
+                <header className={s.pageHeader}>
+                    <div className={s.headerText}>
                         <h1>My Documents</h1>
                         <p>Manage your projects and collaborations.</p>
                     </div>
-                    <button className="create-btn" onClick={() => setShowModal(true)}>
+                    <button className={s.createBtn} onClick={() => setShowModal(true)}>
                         <Plus size={20} />
                         New Document
                     </button>
                 </header>
 
                 {documents.length > 0 ? (
-                    <div className="documents-grid">
+                    <div className={s.documentsGrid}>
                         {documents.map(doc => (
                             <DocumentCard
                                 key={doc.id}
@@ -121,11 +121,11 @@ const Dashboard = () => {
                         ))}
                     </div>
                 ) : (
-                    <div className="empty-state">
+                    <div className={s.emptyState}>
                         <FileX size={64} color="#94a3b8" />
                         <h3>No documents yet</h3>
                         <p>Create your first collaborative document to get started!</p>
-                        <button className="create-btn" onClick={() => setShowModal(true)}>
+                        <button className={s.createBtn} onClick={() => setShowModal(true)}>
                             <Plus size={20} />
                             New Document
                         </button>
@@ -149,9 +149,9 @@ const Dashboard = () => {
                         autoFocus
                         required
                     />
-                    <div className="modal-actions">
-                        <button type="button" className="cancel-btn" onClick={() => setShowModal(false)}>Cancel</button>
-                        <button type="submit" className="confirm-btn" disabled={creating}>
+                    <div className={s.modalActions}>
+                        <button type="button" className={s.cancelBtn} onClick={() => setShowModal(false)}>Cancel</button>
+                        <button type="submit" className={s.confirmBtn} disabled={creating}>
                             {creating ? <Loader2 className="spinner" size={18} /> : 'Create'}
                         </button>
                     </div>
@@ -165,11 +165,11 @@ const Dashboard = () => {
                 onClose={() => setShowDeleteModal(false)}
             >
                 <p>Are you sure you want to delete <strong>"{docToDelete?.title}"</strong>? This action cannot be undone.</p>
-                <div className="modal-actions">
-                    <button type="button" className="cancel-btn" onClick={() => setShowDeleteModal(false)}>Cancel</button>
+                <div className={s.modalActions}>
+                    <button type="button" className={s.cancelBtn} onClick={() => setShowDeleteModal(false)}>Cancel</button>
                     <button
                         type="button"
-                        className="confirm-btn danger"
+                        className={`${s.confirmBtn} ${s.confirmBtnDanger}`}
                         onClick={confirmDelete}
                         disabled={deleting}
                     >
