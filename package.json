@@ -11,7 +11,11 @@
   },
   "dependencies": {
     "react": "^19.2.0",
-    "react-dom": "^19.2.0"
+    "react-dom": "^19.2.0",
+    "react-router-dom": "^7.1.5",
+    "lucide-react": "^0.474.0",
+    "yjs": "^13.6.10",
+    "y-protocols": "^1.0.6"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",
