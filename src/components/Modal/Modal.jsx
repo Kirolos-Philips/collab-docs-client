@@ -7,9 +7,19 @@ const Modal = ({ show, title, children, onClose }) => {
     return (
         <div className={s.modalOverlay} onClick={onClose}>
             <div className={s.modalCard} onClick={(e) => e.stopPropagation()}>
-                {title && <h3>{title}</h3>}
-                {children}
+                {title && <h3 className={s.modalTitle}>{title}</h3>}
+                <div className={s.modalContent}>
+                    {children}
+                </div>
             </div>
+        </div>
+    );
+};
+
+Modal.Actions = ({ children, className = '' }) => {
+    return (
+        <div className={`${s.modalActions} ${className}`}>
+            {children}
         </div>
     );
 };

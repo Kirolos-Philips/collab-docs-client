@@ -11,12 +11,7 @@
     z-index: 100;
 }
 
-.brand {
-    font-size: 1.5rem;
-    font-weight: 800;
-    color: var(--primary);
-    letter-spacing: -0.01em;
-}
+/* Logo component handles .brand now */
 
 .userNav {
     display: flex;

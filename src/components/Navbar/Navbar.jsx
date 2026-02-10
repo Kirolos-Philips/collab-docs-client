@@ -1,10 +1,10 @@
-import React from 'react';
+import Logo from '../Logo/Logo';
 import s from './Navbar.module.css';
 
 const Navbar = ({ user, logout }) => {
     return (
         <nav className={s.navbar}>
-            <div className={s.brand}>Sync</div>
+            <Logo size="sm" />
             <div className={s.userNav}>
                 <div className={s.userInfoStack}>
                     <div className={s.avatar}>

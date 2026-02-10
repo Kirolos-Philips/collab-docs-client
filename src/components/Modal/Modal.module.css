@@ -23,11 +23,16 @@
     animation: slideUp 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.modalCard h3 {
+.modalTitle {
     font-size: 1.25rem;
     font-weight: 700;
     color: var(--text-main);
     margin-bottom: 24px;
+}
+
+.modalContent {
+    display: flex;
+    flex-direction: column;
 }
 
 .modalCard p {

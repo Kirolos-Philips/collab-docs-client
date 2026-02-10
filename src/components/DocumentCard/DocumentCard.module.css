@@ -21,23 +21,17 @@
     gap: 16px;
 }
 
-.cardIcon {
-    width: 44px;
-    height: 44px;
-    background: #f0f7ff;
-    color: var(--primary);
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
+.cardTitleGroup {
+    flex: 1;
 }
 
 .cardTitleGroup h3 {
-    font-size: 1.1rem;
+    font-size: 1.15rem;
+    /* Slightly larger since icon is gone */
     font-weight: 700;
     color: var(--text-main);
-    margin-bottom: 4px;
+    margin-bottom: 2px;
+    line-height: 1.2;
 }
 
 .cardSnippet {
@@ -51,34 +45,23 @@
     min-height: 2.4em;
 }
 
-.cardDeleteBtn {
-    padding: 8px;
-    background: transparent;
-    border: none;
+.moreBtn {
     color: #94a3b8;
-    border-radius: 8px;
-    cursor: pointer;
     transition: all 0.2s;
-    opacity: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-left: auto;
-}
-
-.documentCard:hover .cardDeleteBtn {
-    opacity: 1;
+    margin-top: -4px;
+    /* Offset to stay at very top */
 }
 
 .cardDeleteBtn:hover {
-    background: #fef2f2;
-    color: #ef4444;
+    color: #ef4444 !important;
+    background: #fef2f2 !important;
 }
 
 .cardDivider {
-    height: 1px;
+    height: 2px;
     background: #f1f5f9;
-    margin: 0 -24px;
+    margin: 4px 0;
+    /* Vertical margin, horizontal auto-constrained by padding */
 }
 
 .cardFooter {

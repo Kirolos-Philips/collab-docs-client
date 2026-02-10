@@ -1,29 +1,32 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Plus, FileX, Loader2 } from 'lucide-react';
-import { useAuth } from '../../contexts/AuthContext';
 import API from '../../api/client';
+import { useAuth } from '../../contexts/AuthContext';
 import DocumentCard from '../../components/DocumentCard/DocumentCard';
 import Navbar from '../../components/Navbar/Navbar';
 import Toast from '../../components/Toast/Toast';
 import Modal from '../../components/Modal/Modal';
+import Button from '../../components/Button/Button';
 import s from './Dashboard.module.css';
 
 const Dashboard = () => {
     const [documents, setDocuments] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [creating, setCreating] = useState(false);
     const [showModal, setShowModal] = useState(false);
     const [newTitle, setNewTitle] = useState('');
-
-    // Deletion states
+    const [creating, setCreating] = useState(false);
+    const [notification, setNotification] = useState(null);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [docToDelete, setDocToDelete] = useState(null);
     const [deleting, setDeleting] = useState(false);
-    const [notification, setNotification] = useState(null);
 
     const { user, logout } = useAuth();
     const navigate = useNavigate();
+
+    useEffect(() => {
+        fetchDocuments();
+    }, []);
 
     const fetchDocuments = async () => {
         try {
@@ -36,10 +39,6 @@ const Dashboard = () => {
         }
     };
 
-    useEffect(() => {
-        fetchDocuments();
-    }, []);
-
     const handleCreateSubmit = async (e) => {
         e.preventDefault();
         if (!newTitle.trim()) return;
@@ -47,47 +46,40 @@ const Dashboard = () => {
         setCreating(true);
         try {
             const newDoc = await API.post('/documents', { title: newTitle.trim() });
-            navigate(`/editor/${newDoc.id}`);
-        } catch (error) {
-            console.error('Failed to create document:', error);
-            setNotification({ type: 'error', message: error.message || 'Failed to create document.' });
-            setTimeout(() => setNotification(null), 4000);
-        } finally {
-            setCreating(false);
             setShowModal(false);
             setNewTitle('');
+            navigate(`/editor/${newDoc.id}`);
+        } catch (error) {
+            setNotification({ type: 'error', message: 'Failed to create document' });
+        } finally {
+            setCreating(false);
         }
     };
 
-    const handleDeleteRequest = (doc) => {
+    const handleDeleteClick = (doc) => {
         setDocToDelete(doc);
         setShowDeleteModal(true);
     };
 
     const confirmDelete = async () => {
-        if (!docToDelete) return;
-
         setDeleting(true);
         try {
             await API.delete(`/documents/${docToDelete.id}`);
-            setDocuments(prev => prev.filter(d => d.id !== docToDelete.id));
+            setDocuments(documents.filter(d => d.id !== docToDelete.id));
+            setNotification({ type: 'success', message: 'Document deleted successfully' });
             setShowDeleteModal(false);
-            setDocToDelete(null);
-            setNotification({ type: 'success', message: 'Document deleted successfully!' });
-            setTimeout(() => setNotification(null), 3000);
         } catch (error) {
-            console.error('Failed to delete document:', error);
-            setNotification({ type: 'error', message: error.message || 'Failed to delete document.' });
-            setTimeout(() => setNotification(null), 4000);
+            setNotification({ type: 'error', message: 'Failed to delete document' });
         } finally {
             setDeleting(false);
+            setDocToDelete(null);
         }
     };
 
     if (loading) {
         return (
             <div className="loading-screen">
-                <Loader2 className="spinner" size={48} />
+                <div className="loader"></div>
             </div>
         );
     }
@@ -103,10 +95,9 @@ const Dashboard = () => {
                         <h1>My Documents</h1>
                         <p>Manage your projects and collaborations.</p>
                     </div>
-                    <button className={s.createBtn} onClick={() => setShowModal(true)}>
-                        <Plus size={20} />
+                    <Button icon={Plus} onClick={() => setShowModal(true)}>
                         New Document
-                    </button>
+                    </Button>
                 </header>
 
                 {documents.length > 0 ? (
@@ -116,7 +107,7 @@ const Dashboard = () => {
                                 key={doc.id}
                                 document={doc}
                                 onClick={(id) => navigate(`/editor/${id}`)}
-                                onDelete={handleDeleteRequest}
+                                onDelete={handleDeleteClick}
                             />
                         ))}
                     </div>
@@ -125,10 +116,9 @@ const Dashboard = () => {
                         <FileX size={64} color="#94a3b8" />
                         <h3>No documents yet</h3>
                         <p>Create your first collaborative document to get started!</p>
-                        <button className={s.createBtn} onClick={() => setShowModal(true)}>
-                            <Plus size={20} />
+                        <Button icon={Plus} onClick={() => setShowModal(true)}>
                             New Document
-                        </button>
+                        </Button>
                     </div>
                 )}
             </div>
@@ -139,22 +129,27 @@ const Dashboard = () => {
                 title="Create New Document"
                 onClose={() => setShowModal(false)}
             >
-                <p>Enter a name for your new collaborative document.</p>
                 <form onSubmit={handleCreateSubmit}>
-                    <input
-                        type="text"
-                        value={newTitle}
-                        onChange={(e) => setNewTitle(e.target.value)}
-                        placeholder="e.g. Project Specs"
-                        autoFocus
-                        required
-                    />
-                    <div className={s.modalActions}>
-                        <button type="button" className={s.cancelBtn} onClick={() => setShowModal(false)}>Cancel</button>
-                        <button type="submit" className={s.confirmBtn} disabled={creating}>
-                            {creating ? <Loader2 className="spinner" size={18} /> : 'Create'}
-                        </button>
+                    <div className={s.formGroup}>
+                        <label htmlFor="docTitle">Document Title</label>
+                        <input
+                            id="docTitle"
+                            type="text"
+                            placeholder="Enter document title..."
+                            value={newTitle}
+                            onChange={(e) => setNewTitle(e.target.value)}
+                            autoFocus
+                            required
+                        />
                     </div>
+                    <Modal.Actions>
+                        <Button variant="secondary" onClick={() => setShowModal(false)}>
+                            Cancel
+                        </Button>
+                        <Button type="submit" loading={creating}>
+                            Create
+                        </Button>
+                    </Modal.Actions>
                 </form>
             </Modal>
 
@@ -165,17 +160,18 @@ const Dashboard = () => {
                 onClose={() => setShowDeleteModal(false)}
             >
                 <p>Are you sure you want to delete <strong>"{docToDelete?.title}"</strong>? This action cannot be undone.</p>
-                <div className={s.modalActions}>
-                    <button type="button" className={s.cancelBtn} onClick={() => setShowDeleteModal(false)}>Cancel</button>
-                    <button
-                        type="button"
-                        className={`${s.confirmBtn} ${s.confirmBtnDanger}`}
+                <Modal.Actions>
+                    <Button variant="secondary" onClick={() => setShowDeleteModal(false)}>
+                        Cancel
+                    </Button>
+                    <Button
+                        variant="danger"
                         onClick={confirmDelete}
-                        disabled={deleting}
+                        loading={deleting}
                     >
-                        {deleting ? <Loader2 className="spinner" size={18} /> : 'Delete Document'}
-                    </button>
-                </div>
+                        Delete Document
+                    </Button>
+                </Modal.Actions>
             </Modal>
         </div>
     );

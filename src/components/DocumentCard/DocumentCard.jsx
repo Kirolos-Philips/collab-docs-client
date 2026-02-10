@@ -1,6 +1,8 @@
 import React from 'react';
-import { FileText, Trash2 } from 'lucide-react';
+import { FileText, Trash2, MoreVertical } from 'lucide-react';
 import s from './DocumentCard.module.css';
+import Button from '../Button/Button';
+import Dropdown from '../Dropdown/Dropdown';
 
 const DocumentCard = ({ document, onClick, onDelete }) => {
     const formatDate = (dateString) => {
@@ -13,16 +15,12 @@ const DocumentCard = ({ document, onClick, onDelete }) => {
     };
 
     const handleDelete = (e) => {
-        e.stopPropagation();
         onDelete(document);
     };
 
     return (
         <div className={s.documentCard} onClick={() => onClick(document.id)}>
             <div className={s.cardTop}>
-                <div className={s.cardIcon}>
-                    <FileText size={24} />
-                </div>
                 <div className={s.cardTitleGroup}>
                     <h3 className={s.cardTitle}>{document.title || 'Untitled Document'}</h3>
                     <p className={s.cardSnippet}>
@@ -30,9 +28,26 @@ const DocumentCard = ({ document, onClick, onDelete }) => {
                         {document.content?.length > 60 ? '...' : ''}
                     </p>
                 </div>
-                <button className={s.cardDeleteBtn} onClick={handleDelete} title="Delete document">
-                    <Trash2 size={18} />
-                </button>
+
+                <Dropdown
+                    trigger={
+                        <Button
+                            variant="ghost"
+                            size="sm"
+                            square
+                            className={s.moreBtn}
+                            icon={MoreVertical}
+                        />
+                    }
+                >
+                    <Dropdown.Item
+                        variant="danger"
+                        icon={Trash2}
+                        onClick={handleDelete}
+                    >
+                        Delete
+                    </Dropdown.Item>
+                </Dropdown>
             </div>
 
             <div className={s.cardDivider}></div>

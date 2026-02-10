@@ -1,86 +1,13 @@
-/* Shared Auth Styles */
-.authContainer {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
-}
-
-.authCard {
-    background: var(--bg-card);
-    padding: 40px;
-    border-radius: 16px;
-    box-shadow: var(--shadow-lg);
-    width: 100%;
-    max-width: 440px;
-}
-
-.authHeader {
-    text-align: center;
-    margin-bottom: 32px;
-}
-
 .logoIcon {
-    width: 56px;
-    height: 56px;
-    background: var(--primary);
-    color: white;
-    border-radius: 12px;
+    width: 64px;
+    height: 64px;
+    background: white;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    border-radius: 14px;
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 0 auto 16px;
-}
-
-.authHeader h1 {
-    font-size: 1.5rem;
-    font-weight: 800;
-    margin-bottom: 8px;
-}
-
-.authHeader p {
-    color: var(--text-muted);
-    font-size: 0.9rem;
-}
-
-.inputGroup {
-    margin-bottom: 20px;
-}
-
-.inputGroup label {
-    display: block;
-    font-size: 0.85rem;
-    font-weight: 600;
-    margin-bottom: 8px;
-}
-
-.inputWithIcon {
-    position: relative;
-}
-
-.inputWithIcon .icon {
-    position: absolute;
-    left: 12px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--text-muted);
-}
-
-.inputWithIcon input {
-    width: 100%;
-    padding: 10px 12px 10px 40px;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    font-size: 0.95rem;
-    transition: all 0.2s;
-}
-
-.inputWithIcon input:focus {
-    outline: none;
-    border-color: var(--primary);
-    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
 }
 
 .authError {
@@ -93,45 +20,7 @@
     border: 1px solid #fee2e2;
 }
 
-.authBtn {
+.submitBtn {
     width: 100%;
-    padding: 12px;
-    background: var(--primary);
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 0.95rem;
-    font-weight: 600;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    transition: background 0.2s;
-}
-
-.authBtn:hover {
-    background: var(--primary-hover);
-}
-
-.authBtn:disabled {
-    opacity: 0.7;
-    cursor: not-allowed;
-}
-
-.authFooter {
-    text-align: center;
-    margin-top: 24px;
-    font-size: 0.9rem;
-    color: var(--text-muted);
-}
-
-.authFooter a {
-    color: var(--primary);
-    text-decoration: none;
-    font-weight: 600;
-}
-
-.authFooter a:hover {
-    text-decoration: underline;
+    margin-top: 8px;
 }
