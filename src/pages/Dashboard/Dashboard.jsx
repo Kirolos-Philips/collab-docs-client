@@ -8,6 +8,7 @@ import Navbar from '../../components/Navbar/Navbar';
 import Toast from '../../components/Toast/Toast';
 import Modal from '../../components/Modal/Modal';
 import Button from '../../components/Button/Button';
+import InputField from '../../components/InputField/InputField';
 import s from './Dashboard.module.css';
 
 const Dashboard = () => {
@@ -137,18 +138,14 @@ const Dashboard = () => {
                 onClose={() => setShowModal(false)}
             >
                 <form onSubmit={handleCreateSubmit}>
-                    <div className={s.formGroup}>
-                        <label htmlFor="docTitle">Document Title</label>
-                        <input
-                            id="docTitle"
-                            type="text"
-                            placeholder="Enter document title..."
-                            value={newTitle}
-                            onChange={(e) => setNewTitle(e.target.value)}
-                            autoFocus
-                            required
-                        />
-                    </div>
+                    <InputField
+                        label="Document Title"
+                        placeholder="Enter document title..."
+                        value={newTitle}
+                        onChange={(e) => setNewTitle(e.target.value)}
+                        autoFocus
+                        required
+                    />
                     <Modal.Actions>
                         <Button variant="secondary" onClick={() => setShowModal(false)}>
                             Cancel

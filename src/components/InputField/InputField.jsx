@@ -15,9 +15,13 @@ const InputField = ({
 }) => {
     return (
         <div className={`${s.inputGroup} ${className}`}>
-            {label && <label htmlFor={id}>{label}</label>}
+            {label && <label className={s.label} htmlFor={id}>{label}</label>}
             <div className={`${s.inputWithIcon} ${Icon ? s.hasIcon : ''}`}>
-                {Icon && <Icon className={s.icon} size={18} />}
+                {Icon && (
+                    <div className={s.iconWrapper}>
+                        <Icon size={18} />
+                    </div>
+                )}
                 <input
                     id={id}
                     type={type}

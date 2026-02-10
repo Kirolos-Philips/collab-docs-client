@@ -1,0 +1,121 @@
+.profileContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding: 8px 0;
+}
+
+.avatarSection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.avatarWrapper {
+    position: relative;
+    width: 100px;
+    height: 100px;
+}
+
+.avatarImg {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid white;
+    box-shadow: var(--shadow-md);
+}
+
+.avatarPlaceholder {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: #f1f5f9;
+    color: #94a3b8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 3px solid white;
+    box-shadow: var(--shadow-md);
+}
+
+.avatarUploadLabel {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 36px;
+    height: 36px;
+    background: var(--primary);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: 3px solid white;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.2s;
+}
+
+.avatarUploadLabel:hover {
+    background: var(--primary-hover);
+    transform: scale(1.1);
+}
+
+.emailHint {
+    color: var(--error);
+    font-size: 0.75rem;
+    font-weight: 500;
+    margin-left: auto;
+}
+
+.inputHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.hiddenInput {
+    display: none;
+}
+
+.avatarHint {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.errorMsg {
+    color: var(--error);
+    font-size: 0.85rem;
+    background: #fef2f2;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #fee2e2;
+}
+
+.successMsg {
+    color: var(--success);
+    font-size: 0.85rem;
+    background: #f0fdf4;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #dcfce7;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.spinner {
+    animation: spin 1s linear infinite;
+}
