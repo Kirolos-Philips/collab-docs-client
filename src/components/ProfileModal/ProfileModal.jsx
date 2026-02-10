@@ -5,16 +5,17 @@ import Button from '../Button/Button';
 import InputField from '../InputField/InputField';
 import API from '../../api/client';
 import { useAuth } from '../../contexts/AuthContext';
+import { useToast } from '../../contexts/ToastContext';
 import s from './ProfileModal.module.css';
 
 const ProfileModal = ({ show, onClose }) => {
     const { user, refreshUser } = useAuth();
+    const { showToast } = useToast();
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [saving, setSaving] = useState(false);
     const [uploading, setUploading] = useState(false);
     const [error, setError] = useState(null);
-    const [success, setSuccess] = useState(false);
 
     useEffect(() => {
         if (user) {
@@ -27,13 +28,12 @@ const ProfileModal = ({ show, onClose }) => {
         e.preventDefault();
         setSaving(true);
         setError(null);
-        setSuccess(false);
 
         try {
             await API.updateProfile({ username, email });
             await refreshUser();
-            setSuccess(true);
-            setTimeout(() => setSuccess(false), 3000);
+            showToast('Profile updated successfully!');
+            onClose(); // Close modal on success
         } catch (err) {
             setError(err.message || 'Failed to update profile');
         } finally {
@@ -101,7 +101,6 @@ const ProfileModal = ({ show, onClose }) => {
                     />
 
                     {error && <p className={s.errorMsg}>{error}</p>}
-                    {success && <p className={s.successMsg}>Profile updated successfully!</p>}
 
                     <Modal.Actions>
                         <Button variant="secondary" onClick={onClose}>

@@ -9,6 +9,12 @@
     transition: all 0.2s;
     border: 1px solid transparent;
     font-family: inherit;
+    white-space: nowrap;
+    user-select: none;
+}
+
+.btn:active:not(:disabled) {
+    transform: scale(0.98);
 }
 
 .btn:disabled {

@@ -3,21 +3,21 @@ import { useNavigate } from 'react-router-dom';
 import { Plus, FileX, Loader2 } from 'lucide-react';
 import API from '../../api/client';
 import { useAuth } from '../../contexts/AuthContext';
+import { useToast } from '../../contexts/ToastContext';
 import DocumentCard from '../../components/DocumentCard/DocumentCard';
 import Navbar from '../../components/Navbar/Navbar';
-import Toast from '../../components/Toast/Toast';
 import Modal from '../../components/Modal/Modal';
 import Button from '../../components/Button/Button';
 import InputField from '../../components/InputField/InputField';
 import s from './Dashboard.module.css';
 
 const Dashboard = () => {
+    const { showToast } = useToast();
     const [documents, setDocuments] = useState([]);
     const [loading, setLoading] = useState(true);
     const [showModal, setShowModal] = useState(false);
     const [newTitle, setNewTitle] = useState('');
     const [creating, setCreating] = useState(false);
-    const [notification, setNotification] = useState(null);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [docToDelete, setDocToDelete] = useState(null);
     const [deleting, setDeleting] = useState(false);
@@ -51,7 +51,7 @@ const Dashboard = () => {
             setNewTitle('');
             navigate(`/editor/${newDoc.id}`);
         } catch (error) {
-            setNotification({ type: 'error', message: 'Failed to create document' });
+            showToast('Failed to create document', 'error');
         } finally {
             setCreating(false);
         }
@@ -69,13 +69,12 @@ const Dashboard = () => {
         try {
             await API.delete(`/documents/${docToDelete.id}`);
             setDocuments(documents.filter(d => d.id !== docToDelete.id));
-            setNotification({ type: 'success', message: 'Document deleted successfully' });
+            showToast('Document deleted successfully');
             setShowDeleteModal(false);
             setDocToDelete(null);
         } catch (error) {
             console.error('DASHBOARD: Delete fail:', error);
-            setNotification({ type: 'error', message: error.message || 'Failed to delete document' });
-            // Keep modal open on error so user can see what failed
+            showToast(error.message || 'Failed to delete document', 'error');
         } finally {
             setDeleting(false);
         }
@@ -91,10 +90,6 @@ const Dashboard = () => {
 
     return (
         <div className="app-layout">
-            <Toast
-                notification={notification}
-                onClose={() => setNotification(null)}
-            />
             <Navbar user={user} logout={logout} />
 
             <div className={s.dashboardContainer}>

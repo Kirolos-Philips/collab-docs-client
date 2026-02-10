@@ -36,9 +36,18 @@
 }
 
 .modalCard p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    margin-bottom: 24px;
+    line-height: 1.6;
+}
+
+.modalActions {
     display: flex;
     justify-content: flex-end;
     gap: 12px;
+    margin-top: 8px;
+    /* Standard gap from content */
 }
 
 .cancelBtn {
