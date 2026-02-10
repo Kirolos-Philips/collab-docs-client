@@ -57,22 +57,26 @@ const Dashboard = () => {
     };
 
     const handleDeleteClick = (doc) => {
+        console.log('handleDeleteClick called with:', doc);
         setDocToDelete(doc);
         setShowDeleteModal(true);
     };
 
     const confirmDelete = async () => {
+        console.log('DASHBOARD: confirmDelete for:', docToDelete);
         setDeleting(true);
         try {
             await API.delete(`/documents/${docToDelete.id}`);
             setDocuments(documents.filter(d => d.id !== docToDelete.id));
             setNotification({ type: 'success', message: 'Document deleted successfully' });
             setShowDeleteModal(false);
+            setDocToDelete(null);
         } catch (error) {
-            setNotification({ type: 'error', message: 'Failed to delete document' });
+            console.error('DASHBOARD: Delete fail:', error);
+            setNotification({ type: 'error', message: error.message || 'Failed to delete document' });
+            // Keep modal open on error so user can see what failed
         } finally {
             setDeleting(false);
-            setDocToDelete(null);
         }
     };
 
@@ -86,7 +90,10 @@ const Dashboard = () => {
 
     return (
         <div className="app-layout">
-            <Toast notification={notification} />
+            <Toast
+                notification={notification}
+                onClose={() => setNotification(null)}
+            />
             <Navbar user={user} logout={logout} />
 
             <div className={s.dashboardContainer}>
@@ -153,15 +160,20 @@ const Dashboard = () => {
                 </form>
             </Modal>
 
-            {/* Delete Confirmation Modal */}
             <Modal
                 show={showDeleteModal}
                 title="Delete Document"
-                onClose={() => setShowDeleteModal(false)}
+                onClose={() => {
+                    setShowDeleteModal(false);
+                    setDocToDelete(null);
+                }}
             >
                 <p>Are you sure you want to delete <strong>"{docToDelete?.title}"</strong>? This action cannot be undone.</p>
                 <Modal.Actions>
-                    <Button variant="secondary" onClick={() => setShowDeleteModal(false)}>
+                    <Button variant="secondary" onClick={() => {
+                        setShowDeleteModal(false);
+                        setDocToDelete(null);
+                    }}>
                         Cancel
                     </Button>
                     <Button

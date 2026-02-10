@@ -15,6 +15,8 @@ const DocumentCard = ({ document, onClick, onDelete }) => {
     };
 
     const handleDelete = (e) => {
+        if (e) e.stopPropagation();
+        console.log('CARD: handleDelete triggered for:', document.id);
         onDelete(document);
     };
 
