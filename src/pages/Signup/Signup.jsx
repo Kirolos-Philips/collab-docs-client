@@ -23,8 +23,13 @@ const Signup = () => {
         setLoading(true);
 
         try {
-            await API.post('/auth/signup', { username, email, password });
-            navigate('/login');
+            const response = await API.post('/auth/register', { username, email, password });
+            navigate('/verify-email', {
+                state: {
+                    email,
+                    message: response.message || 'Registration initiated. Please verify your email.'
+                }
+            });
         } catch (err) {
             setError(err.message || 'Registration failed');
         } finally {
