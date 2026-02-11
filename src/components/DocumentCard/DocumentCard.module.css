@@ -1,81 +1,81 @@
 .documentCard {
-    background: white;
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 24px;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    transition: all 0.2s;
-    cursor: pointer;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transition: all 0.2s;
+  cursor: pointer;
 }
 
 .documentCard:hover {
-    border-color: #cbd5e1;
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+  border-color: #cbd5e1;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
 }
 
 .cardTop {
-    display: flex;
-    align-items: flex-start;
-    gap: 16px;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
 }
 
 .cardTitleGroup {
-    flex: 1;
+  flex: 1;
 }
 
 .cardTitleGroup h3 {
-    font-size: 1.15rem;
-    /* Slightly larger since icon is gone */
-    font-weight: 700;
-    color: var(--text-main);
-    margin-bottom: 2px;
-    line-height: 1.2;
+  font-size: 1.15rem;
+  /* Slightly larger since icon is gone */
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 2px;
+  line-height: 1.2;
 }
 
 .cardSnippet {
-    font-size: 0.85rem;
-    color: var(--text-muted);
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    min-height: 2.4em;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: 2.4em;
 }
 
 .moreBtn {
-    color: #94a3b8;
-    transition: all 0.2s;
-    margin-top: -4px;
-    /* Offset to stay at very top */
+  color: #94a3b8;
+  transition: all 0.2s;
+  margin-top: -4px;
+  /* Offset to stay at very top */
 }
 
 .cardDeleteBtn:hover {
-    color: #ef4444 !important;
-    background: #fef2f2 !important;
+  color: #ef4444 !important;
+  background: #fef2f2 !important;
 }
 
 .cardDivider {
-    height: 2px;
-    background: #f1f5f9;
-    margin: 4px 0;
-    /* Vertical margin, horizontal auto-constrained by padding */
+  height: 2px;
+  background: #f1f5f9;
+  margin: 4px 0;
+  /* Vertical margin, horizontal auto-constrained by padding */
 }
 
 .cardFooter {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 0.8rem;
-    color: var(--text-muted);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.8rem;
+  color: var(--text-muted);
 }
 
 .memberBadge {
-    background: #f1f5f9;
-    padding: 4px 8px;
-    border-radius: 4px;
-    font-weight: 600;
-    color: #64748b;
+  background: #f1f5f9;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-weight: 600;
+  color: #64748b;
 }

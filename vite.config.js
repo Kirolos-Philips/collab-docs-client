@@ -1,5 +1,5 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -9,12 +9,12 @@ export default defineConfig({
       '/auth': 'http://localhost:8000',
       '/documents': {
         target: 'http://localhost:8000',
-        ws: true
+        ws: true,
       },
-      '/media': 'http://localhost:8000'
-    }
+      '/media': 'http://localhost:8000',
+    },
   },
   build: {
     sourcemap: true,
-  }
-})
+  },
+});
