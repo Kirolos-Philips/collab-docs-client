@@ -6,6 +6,7 @@ import Login from './pages/Login/Login';
 import Signup from './pages/Signup/Signup';
 import VerifyEmail from './pages/VerifyEmail/VerifyEmail';
 import Dashboard from './pages/Dashboard/Dashboard';
+import Editor from './pages/Editor/Editor';
 
 // Protected Route Component
 const ProtectedRoute = ({ children }) => {
@@ -49,9 +50,7 @@ function App() {
             path="/editor/:id"
             element={
               <ProtectedRoute>
-                <div className="dashboard-placeholder">
-                  <h1>Editor coming soon in SP 3!</h1>
-                </div>
+                <Editor />
               </ProtectedRoute>
             }
           />
