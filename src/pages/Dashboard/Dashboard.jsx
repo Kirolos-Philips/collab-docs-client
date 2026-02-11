@@ -116,12 +116,7 @@ const Dashboard = () => {
                     </div>
                 ) : (
                     <div className={s.emptyState}>
-                        <FileX size={64} color="#94a3b8" />
-                        <h3>No documents yet</h3>
-                        <p>Create your first collaborative document to get started!</p>
-                        <Button icon={Plus} onClick={() => setShowModal(true)}>
-                            New Document
-                        </Button>
+                        <p>You don't have any documents yet. Create one to get started!</p>
                     </div>
                 )}
             </div>

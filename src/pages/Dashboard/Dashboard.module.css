@@ -29,6 +29,25 @@
     gap: 24px;
 }
 
+.emptyState {
+    width: 100%;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #ffffff;
+    border: 2px dashed #cbd5e1;
+    border-radius: 12px;
+    padding: 40px;
+    text-align: center;
+}
+
+.emptyState p {
+    color: #64748b;
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
 /* Standard buttons handle .createBtn, .cancelBtn, .confirmBtn now */
 
 .formGroup {
