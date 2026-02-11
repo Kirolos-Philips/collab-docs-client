@@ -6,7 +6,8 @@
         "delete": "Delete",
         "create": "Create",
         "save": "Save",
-        "actions": "Actions"
+        "actions": "Actions",
+        "back": "Back"
     },
     "auth": {
         "login": "Login",
@@ -62,5 +63,11 @@
         "updatedAt": "Updated {{date}}",
         "membersCount": "{{count}} Member",
         "membersCount_plural": "{{count}} Members"
+    },
+    "editor": {
+        "saved": "Saved",
+        "saving": "Saving...",
+        "offline": "Offline",
+        "startTyping": "Start typing..."
     }
 }

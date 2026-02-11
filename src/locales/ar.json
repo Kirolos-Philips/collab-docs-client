@@ -6,7 +6,8 @@
         "delete": "حذف",
         "create": "إنشاء",
         "save": "حفظ",
-        "actions": "إجراءات"
+        "actions": "إجراءات",
+        "back": "رجوع"
     },
     "auth": {
         "login": "تسجيل الدخول",
@@ -66,5 +67,11 @@
         "membersCount_few": "{{count}} أعضاء",
         "membersCount_many": "{{count}} عضواً",
         "membersCount_other": "{{count}} عضو"
+    },
+    "editor": {
+        "saved": "تم الحفظ",
+        "saving": "جاري الحفظ...",
+        "offline": "أوفلاين",
+        "startTyping": "ابدأ الكتابة هنا..."
     }
 }
