@@ -36,19 +36,25 @@ function App() {
           <Route path="/verify-email" element={<VerifyEmail />} />
 
           {/* Protected Routes */}
-          <Route path="/" element={
-            <ProtectedRoute>
-              <Dashboard />
-            </ProtectedRoute>
-          } />
+          <Route
+            path="/"
+            element={
+              <ProtectedRoute>
+                <Dashboard />
+              </ProtectedRoute>
+            }
+          />
 
-          <Route path="/editor/:id" element={
-            <ProtectedRoute>
-              <div className="dashboard-placeholder">
-                <h1>Editor coming soon in SP 3!</h1>
-              </div>
-            </ProtectedRoute>
-          } />
+          <Route
+            path="/editor/:id"
+            element={
+              <ProtectedRoute>
+                <div className="dashboard-placeholder">
+                  <h1>Editor coming soon in SP 3!</h1>
+                </div>
+              </ProtectedRoute>
+            }
+          />
 
           {/* Catch all */}
           <Route path="*" element={<Navigate to="/" replace />} />

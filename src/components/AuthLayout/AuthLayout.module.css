@@ -1,50 +1,50 @@
 .authContainer {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
 }
 
 .authCard {
-    background: var(--bg-card);
-    padding: 40px;
-    border-radius: 16px;
-    box-shadow: var(--shadow-lg);
-    width: 100%;
-    max-width: 440px;
+  background: var(--bg-card);
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: var(--shadow-lg);
+  width: 100%;
+  max-width: 440px;
 }
 
 .authHeader {
-    text-align: center;
-    margin-bottom: 32px;
+  text-align: center;
+  margin-bottom: 32px;
 }
 
 .authHeader h1 {
-    font-size: 1.5rem;
-    font-weight: 800;
-    margin-bottom: 8px;
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin-bottom: 8px;
 }
 
 .authHeader p {
-    color: var(--text-muted);
-    font-size: 0.9rem;
+  color: var(--text-muted);
+  font-size: 0.9rem;
 }
 
 .authFooter {
-    text-align: center;
-    margin-top: 24px;
-    font-size: 0.9rem;
-    color: var(--text-muted);
+  text-align: center;
+  margin-top: 24px;
+  font-size: 0.9rem;
+  color: var(--text-muted);
 }
 
 .authFooter a {
-    color: var(--primary);
-    text-decoration: none;
-    font-weight: 600;
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 600;
 }
 
 .authFooter a:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }

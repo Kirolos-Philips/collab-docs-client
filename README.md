@@ -6,13 +6,13 @@ A modern, real-time collaborative document editing platform built with React, Vi
 
 - **Real-time Collaboration**: Multi-user editing with live cursor awareness and presence indicators (powered by Yjs).
 - **Premium UI/UX**: A custom-built design system featuring:
-    - Standardized, high-quality components (`Button`, `InputField`, `Modal`, `Dropdown`).
-    - Smart icon alignment and pixel-perfect centering.
-    - Responsive interactive states and micro-animations.
+  - Standardized, high-quality components (`Button`, `InputField`, `Modal`, `Dropdown`).
+  - Smart icon alignment and pixel-perfect centering.
+  - Responsive interactive states and micro-animations.
 - **Internationalization (i18n) & RTL Support**: Full support for English and Arabic.
-    - Dynamic language switching without page reload.
-    - Automatic RTL (Right-to-Left) layout adjustment for Arabic.
-    - Localized dates, pluralization, and UI elements.
+  - Dynamic language switching without page reload.
+  - Automatic RTL (Right-to-Left) layout adjustment for Arabic.
+  - Localized dates, pluralization, and UI elements.
 - **Global Notification System**: Non-intrusive toast notifications for real-time feedback on user actions.
 - **Authentication & Security**: Secure login and registration flow with persistent session management.
 - **Profile Customization**: Personalize your identity with custom usernames and avatar uploads.
@@ -39,23 +39,28 @@ A modern, real-time collaborative document editing platform built with React, Vi
 ## 🏁 Getting Started
 
 ### Prerequisites
+
 - Node.js (v18+)
 - Backend server instance
 
 ### Installation
+
 ```bash
 npm install
 ```
 
 ### Running the Development Server
+
 ```bash
 npm run dev
 ```
 
 ### Production Build
+
 ```bash
 npm run build
 ```
 
 ---
-*Created with ❤️ by Kero.*
+
+_Created with ❤️ by Kero._

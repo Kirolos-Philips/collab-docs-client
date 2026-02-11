@@ -8,12 +8,12 @@ import s from './Logo.module.css';
  * @param {string} className - Optional container className override
  */
 const Logo = ({ size = 'sm', showText = true, className = '' }) => {
-    return (
-        <div className={`${s.logoContainer} ${s[size]} ${className}`}>
-            <img src="/logo.png" alt="Sync Logo" className={s.logoImg} />
-            {showText && <span className={s.logoText}>Sync</span>}
-        </div>
-    );
+  return (
+    <div className={`${s.logoContainer} ${s[size]} ${className}`}>
+      <img src="/logo.png" alt="Sync Logo" className={s.logoImg} />
+      {showText && <span className={s.logoText}>Sync</span>}
+    </div>
+  );
 };
 
 export default Logo;
