@@ -1,0 +1,26 @@
+.logoIcon {
+    width: 64px;
+    height: 64px;
+    background: white;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 16px;
+}
+
+.authError {
+    background: #fef2f2;
+    color: var(--error);
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    margin-bottom: 20px;
+    border: 1px solid #fee2e2;
+}
+
+.submitBtn {
+    width: 100%;
+    margin-top: 8px;
+}

@@ -1,16 +1,56 @@
-# React + Vite
+# Collaborative Document Editor - Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, real-time collaborative document editing platform built with React, Vite, and Yjs. This frontend provides a premium user experience with a custom design system, robust state management, and seamless collaboration features.
 
-Currently, two official plugins are available:
+## ✨ Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Real-time Collaboration**: Multi-user editing with live cursor awareness and presence indicators (powered by Yjs).
+- **Premium UI/UX**: A custom-built design system featuring:
+    - Standardized, high-quality components (`Button`, `InputField`, `Modal`, `Dropdown`).
+    - Smart icon alignment and pixel-perfect centering.
+    - Responsive interactive states and micro-animations.
+- **Global Notification System**: Non-intrusive toast notifications for real-time feedback on user actions.
+- **Authentication & Security**: Secure login and registration flow with persistent session management.
+- **Profile Customization**: Personalize your identity with custom usernames and avatar uploads.
+- **Document Management**: intuitive dashboard for creating, listing, and managing your collaborative projects.
 
-## React Compiler
+## 🛠 Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Framework**: React 18 with Vite
+- **Styling**: Vanilla CSS with CSS Modules and Global Theme Variables
+- **Icons**: Lucide React
+- **Real-time Engine**: Yjs & WebSockets
+- **State Management**: React Context API (`AuthContext`, `ToastContext`)
+- **API Communication**: Centralized Axios client with request/response interceptors
 
-## Expanding the ESLint configuration
+## 🏗 Project Structure
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- `src/components/`: Reusable, atomic UI components.
+- `src/contexts/`: Global state and business logic providers.
+- `src/pages/`: Feature-complete view components (Dashboard, Authentication).
+- `src/api/`: Centralized API service layer.
+- `src/styles/`: Design tokens, theme variables, and global resets.
+
+## 🏁 Getting Started
+
+### Prerequisites
+- Node.js (v18+)
+- Backend server instance
+
+### Installation
+```bash
+npm install
+```
+
+### Running the Development Server
+```bash
+npm run dev
+```
+
+### Production Build
+```bash
+npm run build
+```
+
+---
+*Created with ❤️ by Kero.*

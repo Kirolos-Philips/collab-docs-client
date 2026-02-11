@@ -1,0 +1,51 @@
+.logoContainer {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 800;
+    color: var(--primary);
+    letter-spacing: -0.5px;
+    user-select: none;
+}
+
+.logoImg {
+    object-fit: contain;
+}
+
+/* Sizes */
+.sm .logoImg {
+    width: 32px;
+    height: 32px;
+}
+
+.sm .logoText {
+    font-size: 1.5rem;
+}
+
+.lg {
+    flex-direction: column;
+    gap: 16px;
+    text-align: center;
+}
+
+.lg .logoImg {
+    width: 44px;
+    height: 44px;
+}
+
+.lg .logoText {
+    font-size: 1.5rem;
+    color: var(--text-main);
+}
+
+/* Auth version (Login/Signup) wrapper logic */
+.authWrap {
+    width: 64px;
+    height: 64px;
+    background: white;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
