@@ -48,18 +48,29 @@
 }
 
 .docTitle {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: var(--text-main);
-  border: 1px solid transparent;
-  padding: 4px 8px;
-  border-radius: 4px;
-  transition: all 0.2s;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-main);
+    border: 1px solid transparent;
+    padding: 6px 12px;
+    border-radius: 6px;
+    transition: all 0.2s;
+    background: transparent;
+    font-family: inherit;
+    width: auto;
+    min-width: 200px;
 }
 
 .docTitle:hover {
   border-color: var(--border);
   background: #f8fafc;
+}
+
+.docTitle:focus {
+    outline: none;
+    border-color: var(--primary);
+    background: #ffffff;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
 }
 
 .headerRight {
