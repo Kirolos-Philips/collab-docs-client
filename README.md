@@ -9,6 +9,10 @@ A modern, real-time collaborative document editing platform built with React, Vi
     - Standardized, high-quality components (`Button`, `InputField`, `Modal`, `Dropdown`).
     - Smart icon alignment and pixel-perfect centering.
     - Responsive interactive states and micro-animations.
+- **Internationalization (i18n) & RTL Support**: Full support for English and Arabic.
+    - Dynamic language switching without page reload.
+    - Automatic RTL (Right-to-Left) layout adjustment for Arabic.
+    - Localized dates, pluralization, and UI elements.
 - **Global Notification System**: Non-intrusive toast notifications for real-time feedback on user actions.
 - **Authentication & Security**: Secure login and registration flow with persistent session management.
 - **Profile Customization**: Personalize your identity with custom usernames and avatar uploads.
@@ -17,6 +21,7 @@ A modern, real-time collaborative document editing platform built with React, Vi
 ## 🛠 Tech Stack
 
 - **Framework**: React 18 with Vite
+- **Internationalization**: i18next & react-i18next
 - **Styling**: Vanilla CSS with CSS Modules and Global Theme Variables
 - **Icons**: Lucide React
 - **Real-time Engine**: Yjs & WebSockets
