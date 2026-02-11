@@ -1,0 +1,70 @@
+{
+    "common": {
+        "appName": "المحرر التعاوني",
+        "loading": "جاري التحميل...",
+        "cancel": "إلغاء",
+        "delete": "حذف",
+        "create": "إنشاء",
+        "save": "حفظ",
+        "actions": "إجراءات"
+    },
+    "auth": {
+        "login": "تسجيل الدخول",
+        "signup": "إنشاء حساب",
+        "logout": "تسجيل الخروج",
+        "createAccount": "إنشاء حساب جديد",
+        "welcomeBack": "مرحباً بك مجدداً",
+        "credentialsSubtitle": "أدخل بياناتك للوصول إلى مستنداتك",
+        "joinCommunity": "انضم إلى مجتمع التحرير التعاوني الخاص بنا",
+        "alreadyHaveAccount": "لديك حساب بالفعل؟",
+        "dontHaveAccount": "ليس لديك حساب؟",
+        "username": "اسم المستخدم",
+        "email": "البريد الإلكتروني",
+        "password": "كلمة المرور",
+        "registrationFailed": "فشل إنشاء الحساب",
+        "invalidCredentials": "بيانات الدخول غير صحيحة",
+        "otpSent": "تم إرسال رمز التحقق إلى بريدك الإلكتروني.",
+        "emailVerified": "تم التحقق من البريد! يمكنك تسجيل الدخول الآن.",
+        "sync": "مزامنة",
+        "lastStep": "الخطوة الأخيرة.",
+        "enterOtp": "أدخل الرمز المكون من 6 أرقام المرسل إلى بريدك الإلكتروني.",
+        "verificationCode": "رمز التحقق",
+        "verifyAndSignIn": "التحقق وتسجيل الدخول",
+        "didntReceiveCode": "لم يصلك الرمز؟",
+        "resend": "إعادة الإرسال"
+    },
+    "dashboard": {
+        "myDocuments": "مستنداتي",
+        "manageProjects": "إدارة مشاريعك وعمليات التعاون الخاصة بك.",
+        "newDocument": "مستند جديد",
+        "noDocuments": "ليس لديك أي مستندات بعد. أنشئ واحداً للبدء!",
+        "docTitle": "عنوان المستند",
+        "enterDocTitle": "أدخل عنوان المستند...",
+        "confirmDelete": "هل أنت متأكد أنك تريد حذف \"{{title}}\"؟ لا يمكن التراجع عن هذا الإجراء.",
+        "failedToCreate": "فشل إنشاء المستند",
+        "deletedSuccess": "تم حذف المستند بنجاح",
+        "failedToDelete": "فشل حذف المستند",
+        "deleteDocument": "حذف المستند"
+    },
+    "profile": {
+        "editProfile": "تعديل الملف الشخصي",
+        "username": "اسم المستخدم",
+        "emailAddress": "البريد الإلكتروني",
+        "saveChanges": "حفظ التغييرات",
+        "profileUpdated": "تم تحديث الملف الشخصي بنجاح!",
+        "failedToUpdate": "فشل تحديث الملف الشخصي",
+        "clickToChangeAvatar": "انقر على الكاميرا لتغيير الصورة",
+        "failedToUploadAvatar": "فشل تحميل الصورة"
+    },
+    "document": {
+        "untitled": "مستند بدون عنوان",
+        "noContent": "لا يوجد محتوى بعد.",
+        "updatedAt": "تم التحديث في {{date}}",
+        "membersCount_zero": "لا يوجد أعضاء",
+        "membersCount_one": "عضو واحد",
+        "membersCount_two": "عضوان",
+        "membersCount_few": "{{count}} أعضاء",
+        "membersCount_many": "{{count}} عضواً",
+        "membersCount_other": "{{count}} عضو"
+    }
+}

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { Plus, FileX, Loader2 } from 'lucide-react';
 import API from '../../api/client';
@@ -12,6 +13,7 @@ import InputField from '../../components/InputField/InputField';
 import s from './Dashboard.module.css';
 
 const Dashboard = () => {
+    const { t } = useTranslation();
     const { showToast } = useToast();
     const [documents, setDocuments] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -51,7 +53,7 @@ const Dashboard = () => {
             setNewTitle('');
             navigate(`/editor/${newDoc.id}`);
         } catch (error) {
-            showToast('Failed to create document', 'error');
+            showToast(t('dashboard.failedToCreate', { defaultValue: 'Failed to create document' }), 'error');
         } finally {
             setCreating(false);
         }
@@ -69,12 +71,12 @@ const Dashboard = () => {
         try {
             await API.delete(`/documents/${docToDelete.id}`);
             setDocuments(documents.filter(d => d.id !== docToDelete.id));
-            showToast('Document deleted successfully');
+            showToast(t('dashboard.deletedSuccess', { defaultValue: 'Document deleted successfully' }));
             setShowDeleteModal(false);
             setDocToDelete(null);
         } catch (error) {
             console.error('DASHBOARD: Delete fail:', error);
-            showToast(error.message || 'Failed to delete document', 'error');
+            showToast(error.message || t('dashboard.failedToDelete', { defaultValue: 'Failed to delete document' }), 'error');
         } finally {
             setDeleting(false);
         }
@@ -95,11 +97,11 @@ const Dashboard = () => {
             <div className={s.dashboardContainer}>
                 <header className={s.pageHeader}>
                     <div className={s.headerText}>
-                        <h1>My Documents</h1>
-                        <p>Manage your projects and collaborations.</p>
+                        <h1>{t('dashboard.myDocuments')}</h1>
+                        <p>{t('dashboard.manageProjects')}</p>
                     </div>
                     <Button icon={Plus} onClick={() => setShowModal(true)}>
-                        New Document
+                        {t('dashboard.newDocument')}
                     </Button>
                 </header>
 
@@ -116,7 +118,7 @@ const Dashboard = () => {
                     </div>
                 ) : (
                     <div className={s.emptyState}>
-                        <p>You don't have any documents yet. Create one to get started!</p>
+                        <p>{t('dashboard.noDocuments')}</p>
                     </div>
                 )}
             </div>
@@ -124,13 +126,13 @@ const Dashboard = () => {
             {/* Create Document Modal */}
             <Modal
                 show={showModal}
-                title="Create New Document"
+                title={t('dashboard.newDocument')}
                 onClose={() => setShowModal(false)}
             >
                 <form onSubmit={handleCreateSubmit}>
                     <InputField
-                        label="Document Title"
-                        placeholder="Enter document title..."
+                        label={t('dashboard.docTitle')}
+                        placeholder={t('dashboard.enterDocTitle')}
                         value={newTitle}
                         onChange={(e) => setNewTitle(e.target.value)}
                         autoFocus
@@ -138,10 +140,10 @@ const Dashboard = () => {
                     />
                     <Modal.Actions>
                         <Button variant="secondary" onClick={() => setShowModal(false)}>
-                            Cancel
+                            {t('common.cancel')}
                         </Button>
                         <Button type="submit" loading={creating}>
-                            Create
+                            {t('common.create')}
                         </Button>
                     </Modal.Actions>
                 </form>
@@ -149,26 +151,26 @@ const Dashboard = () => {
 
             <Modal
                 show={showDeleteModal}
-                title="Delete Document"
+                title={t('dashboard.deleteDocument', { defaultValue: 'Delete Document' })}
                 onClose={() => {
                     setShowDeleteModal(false);
                     setDocToDelete(null);
                 }}
             >
-                <p>Are you sure you want to delete <strong>"{docToDelete?.title}"</strong>? This action cannot be undone.</p>
+                <p>{t('dashboard.confirmDelete', { title: docToDelete?.title })}</p>
                 <Modal.Actions>
                     <Button variant="secondary" onClick={() => {
                         setShowDeleteModal(false);
                         setDocToDelete(null);
                     }}>
-                        Cancel
+                        {t('common.cancel')}
                     </Button>
                     <Button
                         variant="danger"
                         onClick={confirmDelete}
                         loading={deleting}
                     >
-                        Delete Document
+                        {t('dashboard.deleteDocument', { defaultValue: 'Delete Document' })}
                     </Button>
                 </Modal.Actions>
             </Modal>

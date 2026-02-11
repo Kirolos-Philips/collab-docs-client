@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { Mail, Lock, User } from 'lucide-react';
 import API from '../../api/client';
 import Logo from '../../components/Logo/Logo';
@@ -9,6 +10,7 @@ import Button from '../../components/Button/Button';
 import s from './Signup.module.css';
 
 const Signup = () => {
+    const { t } = useTranslation();
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -27,11 +29,11 @@ const Signup = () => {
             navigate('/verify-email', {
                 state: {
                     email,
-                    message: response.message || 'Registration initiated. Please verify your email.'
+                    message: response.message || t('auth.otpSent')
                 }
             });
         } catch (err) {
-            setError(err.message || 'Registration failed');
+            setError(err.message || t('auth.registrationFailed'));
         } finally {
             setLoading(false);
         }
@@ -39,9 +41,9 @@ const Signup = () => {
 
     return (
         <AuthLayout
-            title="Create Account"
-            subtitle="Join our collaborative editing community"
-            footer={<>Already have an account? <Link to="/login">Login</Link></>}
+            title={t('auth.createAccount')}
+            subtitle={t('auth.joinCommunity')}
+            footer={<>{t('auth.alreadyHaveAccount')} <Link to="/login">{t('auth.login')}</Link></>}
         >
             <div className={s.logoIcon}>
                 <Logo size="lg" showText={false} />
@@ -52,7 +54,7 @@ const Signup = () => {
 
                 <InputField
                     id="username"
-                    label="Username"
+                    label={t('auth.username')}
                     icon={User}
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
@@ -62,7 +64,7 @@ const Signup = () => {
 
                 <InputField
                     id="email"
-                    label="Email"
+                    label={t('auth.email')}
                     type="email"
                     icon={Mail}
                     value={email}
@@ -73,7 +75,7 @@ const Signup = () => {
 
                 <InputField
                     id="password"
-                    label="Password"
+                    label={t('auth.password')}
                     type="password"
                     icon={Lock}
                     value={password}
@@ -87,7 +89,7 @@ const Signup = () => {
                     loading={loading}
                     className={s.submitBtn}
                 >
-                    Create Account
+                    {t('auth.signup')}
                 </Button>
             </form>
         </AuthLayout>
