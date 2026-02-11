@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate, Link } from 'react-router-dom';
 import { Mail, Lock } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
@@ -9,6 +10,7 @@ import Button from '../../components/Button/Button';
 import s from './Login.module.css';
 
 const Login = () => {
+    const { t } = useTranslation();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
@@ -26,7 +28,7 @@ const Login = () => {
             await login(username, password);
             navigate('/');
         } catch (err) {
-            setError(err.message || 'Invalid credentials');
+            setError(err.message || t('auth.invalidCredentials'));
         } finally {
             setLoading(false);
         }
@@ -34,9 +36,9 @@ const Login = () => {
 
     return (
         <AuthLayout
-            title="Welcome Back"
-            subtitle="Enter your credentials to access your documents"
-            footer={<>Don't have an account? <Link to="/signup">Sign up</Link></>}
+            title={t('auth.welcomeBack')}
+            subtitle={t('auth.credentialsSubtitle')}
+            footer={<>{t('auth.dontHaveAccount')} <Link to="/signup">{t('auth.signup')}</Link></>}
         >
             <div className={s.logoIcon}>
                 <Logo size="lg" showText={false} />
@@ -47,7 +49,7 @@ const Login = () => {
 
                 <InputField
                     id="username"
-                    label="Username"
+                    label={t('auth.username')}
                     icon={Mail}
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
@@ -57,7 +59,7 @@ const Login = () => {
 
                 <InputField
                     id="password"
-                    label="Password"
+                    label={t('auth.password')}
                     type="password"
                     icon={Lock}
                     value={password}
@@ -71,7 +73,7 @@ const Login = () => {
                     loading={loading}
                     className={s.submitBtn}
                 >
-                    Login
+                    {t('auth.login')}
                 </Button>
             </form>
         </AuthLayout>

@@ -1,13 +1,16 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { FileText, Trash2, MoreVertical } from 'lucide-react';
 import s from './DocumentCard.module.css';
 import Button from '../Button/Button';
 import Dropdown from '../Dropdown/Dropdown';
 
 const DocumentCard = ({ document, onClick, onDelete }) => {
+    const { t, i18n } = useTranslation();
+
     const formatDate = (dateString) => {
-        if (!dateString) return 'Never';
-        return new Date(dateString).toLocaleDateString('en-US', {
+        if (!dateString) return t('common.never', { defaultValue: 'Never' });
+        return new Date(dateString).toLocaleDateString(i18n.language === 'ar' ? 'ar-EG' : 'en-US', {
             month: 'short',
             day: 'numeric',
             year: 'numeric'
@@ -16,7 +19,6 @@ const DocumentCard = ({ document, onClick, onDelete }) => {
 
     const handleDelete = (e) => {
         if (e) e.stopPropagation();
-        console.log('CARD: handleDelete triggered for:', document.id);
         onDelete(document);
     };
 
@@ -24,42 +26,44 @@ const DocumentCard = ({ document, onClick, onDelete }) => {
         <div className={s.documentCard} onClick={() => onClick(document.id)}>
             <div className={s.cardTop}>
                 <div className={s.cardTitleGroup}>
-                    <h3 className={s.cardTitle}>{document.title || 'Untitled Document'}</h3>
+                    <h3 className={s.cardTitle}>{document.title || t('document.untitled')}</h3>
                     <p className={s.cardSnippet}>
-                        {document.content?.substring(0, 60) || 'No content yet.'}
+                        {document.content?.substring(0, 60) || t('document.noContent')}
                         {document.content?.length > 60 ? '...' : ''}
                     </p>
                 </div>
 
-                <Dropdown
-                    trigger={
-                        <Button
-                            variant="ghost"
-                            size="sm"
-                            square
-                            className={s.moreBtn}
-                            icon={MoreVertical}
-                        />
-                    }
-                >
-                    <Dropdown.Item
-                        variant="danger"
-                        icon={Trash2}
-                        onClick={handleDelete}
+                <div onClick={(e) => e.stopPropagation()}>
+                    <Dropdown
+                        trigger={
+                            <Button
+                                variant="ghost"
+                                size="sm"
+                                square
+                                className={s.moreBtn}
+                                icon={MoreVertical}
+                            />
+                        }
                     >
-                        Delete
-                    </Dropdown.Item>
-                </Dropdown>
+                        <Dropdown.Item
+                            variant="danger"
+                            icon={Trash2}
+                            onClick={handleDelete}
+                        >
+                            {t('common.delete')}
+                        </Dropdown.Item>
+                    </Dropdown>
+                </div>
             </div>
 
             <div className={s.cardDivider}></div>
 
             <div className={s.cardFooter}>
                 <div className={s.metaItem}>
-                    <span>Updated {formatDate(document.updated_at || document.created_at)}</span>
+                    <span>{t('document.updatedAt', { date: formatDate(document.updated_at || document.created_at) })}</span>
                 </div>
                 <div className={s.memberBadge}>
-                    {document.collaborators?.length + 1 || 1} Member(s)
+                    {t('document.membersCount', { count: (document.collaborators?.length || 0) + 1 })}
                 </div>
             </div>
         </div>

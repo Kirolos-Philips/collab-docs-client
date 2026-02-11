@@ -8,6 +8,7 @@ import { useToast } from '../../contexts/ToastContext';
 import s from './VerifyEmail.module.css';
 
 const VerifyEmail = () => {
+    const { t } = useTranslation();
     const [otp, setOtp] = useState('');
     const [error, setError] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
@@ -27,14 +28,14 @@ const VerifyEmail = () => {
             }
         } else {
             // Fallback or redirect if no email
-            setError('Email not found. Please try signing up again.');
+            setError(t('auth.emailNotFound', { defaultValue: 'Email not found. Please try signing up again.' }));
         }
-    }, [location]);
+    }, [location, t]);
 
     const handleVerify = async (e) => {
         e.preventDefault();
         if (otp.length !== 6) {
-            setError('Please enter the 6-digit code');
+            setError(t('auth.enter6DigitCode', { defaultValue: 'Please enter the 6-digit code' }));
             return;
         }
 
@@ -44,14 +45,14 @@ const VerifyEmail = () => {
 
         try {
             const response = await API.post('/auth/verify-email', { email, otp });
-            showToast(response.message || 'Email verified successfully!', 'success');
+            showToast(response.message || t('auth.emailVerified', { defaultValue: 'Email verified successfully!' }), 'success');
 
             // Short delay before redirecting
             setTimeout(() => {
                 navigate('/login');
             }, 1000);
         } catch (err) {
-            setError(err.message || 'Verification failed. Please check the code.');
+            setError(err.message || t('auth.verificationFailed', { defaultValue: 'Verification failed. Please check the code.' }));
         } finally {
             setLoading(false);
         }
@@ -59,11 +60,11 @@ const VerifyEmail = () => {
 
     return (
         <AuthLayout
-            title="Sync"
-            subtitle="One last step."
+            title={t('auth.sync')}
+            subtitle={t('auth.lastStep')}
             footer={
                 <div className={s.resendText}>
-                    Didn't receive a code? <button className={s.resendBtn} onClick={() => {/* Resend logic */ }}>Resend</button>
+                    {t('auth.didntReceiveCode')} <button className={s.resendBtn} onClick={() => {/* Resend logic */ }}>{t('auth.resend')}</button>
                 </div>
             }
         >
@@ -71,14 +72,14 @@ const VerifyEmail = () => {
 
             <div className={s.content}>
                 <p className={s.instruction}>
-                    Enter the 6-digit code sent to your email.
+                    {t('auth.enterOtp')}
                 </p>
 
                 <form onSubmit={handleVerify}>
                     {error && <div className={s.errorMsg}>{error}</div>}
 
                     <div className={s.inputWrapper}>
-                        <label className={s.label}>Verification Code</label>
+                        <label className={s.label}>{t('auth.verificationCode')}</label>
                         <OtpInput value={otp} onChange={setOtp} />
                     </div>
 
@@ -87,7 +88,7 @@ const VerifyEmail = () => {
                         loading={loading}
                         className={s.verifyBtn}
                     >
-                        Verify & Sign In
+                        {t('auth.verifyAndSignIn')}
                     </Button>
                 </form>
 

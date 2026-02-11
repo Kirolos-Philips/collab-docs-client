@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { User, Mail, Camera, Loader2, X } from 'lucide-react';
 import Modal from '../Modal/Modal';
 import Button from '../Button/Button';
@@ -9,6 +10,7 @@ import { useToast } from '../../contexts/ToastContext';
 import s from './ProfileModal.module.css';
 
 const ProfileModal = ({ show, onClose }) => {
+    const { t } = useTranslation();
     const { user, refreshUser } = useAuth();
     const { showToast } = useToast();
     const [username, setUsername] = useState('');
@@ -32,10 +34,10 @@ const ProfileModal = ({ show, onClose }) => {
         try {
             await API.updateProfile({ username, email });
             await refreshUser();
-            showToast('Profile updated successfully!');
+            showToast(t('profile.profileUpdated'));
             onClose(); // Close modal on success
         } catch (err) {
-            setError(err.message || 'Failed to update profile');
+            setError(err.message || t('profile.failedToUpdate'));
         } finally {
             setSaving(false);
         }
@@ -52,14 +54,14 @@ const ProfileModal = ({ show, onClose }) => {
             await API.uploadAvatar(file);
             await refreshUser();
         } catch (err) {
-            setError(err.message || 'Failed to upload avatar');
+            setError(err.message || t('profile.failedToUploadAvatar'));
         } finally {
             setUploading(false);
         }
     };
 
     return (
-        <Modal show={show} title="Edit Profile" onClose={onClose}>
+        <Modal show={show} title={t('profile.editProfile')} onClose={onClose}>
             <div className={s.profileContainer}>
                 <div className={s.avatarSection}>
                     <div className={s.avatarWrapper}>
@@ -81,19 +83,19 @@ const ProfileModal = ({ show, onClose }) => {
                             />
                         </label>
                     </div>
-                    <p className={s.avatarHint}>Click the camera to change avatar</p>
+                    <p className={s.avatarHint}>{t('profile.clickToChangeAvatar')}</p>
                 </div>
 
                 <form onSubmit={handleSubmit} className={s.form}>
                     <InputField
-                        label="Username"
+                        label={t('profile.username')}
                         icon={User}
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
                         required
                     />
                     <InputField
-                        label="Email Address"
+                        label={t('profile.emailAddress')}
                         icon={Mail}
                         type="email"
                         value={email}
@@ -104,10 +106,10 @@ const ProfileModal = ({ show, onClose }) => {
 
                     <Modal.Actions>
                         <Button variant="secondary" onClick={onClose}>
-                            Cancel
+                            {t('common.cancel')}
                         </Button>
                         <Button type="submit" loading={saving}>
-                            Save Changes
+                            {t('profile.saveChanges')}
                         </Button>
                     </Modal.Actions>
                 </form>
