@@ -6,6 +6,7 @@ import Button from '../../components/Button/Button';
 import OtpInput from '../../components/OtpInput/OtpInput';
 import { useToast } from '../../contexts/ToastContext';
 import s from './VerifyEmail.module.css';
+import { useTranslation } from 'react-i18next';
 
 const VerifyEmail = () => {
   const { t } = useTranslation();
