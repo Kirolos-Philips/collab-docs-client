@@ -1,73 +1,73 @@
 {
-    "common": {
-        "appName": "Collaborative Editor",
-        "loading": "Loading...",
-        "cancel": "Cancel",
-        "delete": "Delete",
-        "create": "Create",
-        "save": "Save",
-        "actions": "Actions",
-        "back": "Back"
-    },
-    "auth": {
-        "login": "Login",
-        "signup": "Sign up",
-        "logout": "Logout",
-        "createAccount": "Create Account",
-        "welcomeBack": "Welcome Back",
-        "credentialsSubtitle": "Enter your credentials to access your documents",
-        "joinCommunity": "Join our collaborative editing community",
-        "alreadyHaveAccount": "Already have an account?",
-        "dontHaveAccount": "Don't have an account?",
-        "username": "Username",
-        "email": "Email",
-        "password": "Password",
-        "registrationFailed": "Registration failed",
-        "invalidCredentials": "Invalid credentials",
-        "otpSent": "OTP sent to your email.",
-        "emailVerified": "Email verified! You can now login.",
-        "sync": "Sync",
-        "lastStep": "One last step.",
-        "enterOtp": "Enter the 6-digit code sent to your email.",
-        "verificationCode": "Verification Code",
-        "verifyAndSignIn": "Verify & Sign In",
-        "didntReceiveCode": "Didn't receive a code?",
-        "resend": "Resend"
-    },
-    "dashboard": {
-        "myDocuments": "My Documents",
-        "manageProjects": "Manage your projects and collaborations.",
-        "newDocument": "New Document",
-        "noDocuments": "You don't have any documents yet. Create one to get started!",
-        "docTitle": "Document Title",
-        "enterDocTitle": "Enter document title...",
-        "confirmDelete": "Are you sure you want to delete \"{{title}}\"? This action cannot be undone.",
-        "failedToCreate": "Failed to create document",
-        "deletedSuccess": "Document deleted successfully",
-        "failedToDelete": "Failed to delete document",
-        "deleteDocument": "Delete Document"
-    },
-    "profile": {
-        "editProfile": "Edit Profile",
-        "username": "Username",
-        "emailAddress": "Email Address",
-        "saveChanges": "Save Changes",
-        "profileUpdated": "Profile updated successfully!",
-        "failedToUpdate": "Failed to update profile",
-        "clickToChangeAvatar": "Click the camera to change avatar",
-        "failedToUploadAvatar": "Failed to upload avatar"
-    },
-    "document": {
-        "untitled": "Untitled Document",
-        "noContent": "No content yet.",
-        "updatedAt": "Updated {{date}}",
-        "membersCount": "{{count}} Member",
-        "membersCount_plural": "{{count}} Members"
-    },
-    "editor": {
-        "saved": "Saved",
-        "saving": "Saving...",
-        "offline": "Offline",
-        "startTyping": "Start typing..."
-    }
+  "common": {
+    "appName": "Collaborative Editor",
+    "loading": "Loading...",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "create": "Create",
+    "save": "Save",
+    "actions": "Actions",
+    "back": "Back"
+  },
+  "auth": {
+    "login": "Login",
+    "signup": "Sign up",
+    "logout": "Logout",
+    "createAccount": "Create Account",
+    "welcomeBack": "Welcome Back",
+    "credentialsSubtitle": "Enter your credentials to access your documents",
+    "joinCommunity": "Join our collaborative editing community",
+    "alreadyHaveAccount": "Already have an account?",
+    "dontHaveAccount": "Don't have an account?",
+    "username": "Username",
+    "email": "Email",
+    "password": "Password",
+    "registrationFailed": "Registration failed",
+    "invalidCredentials": "Invalid credentials",
+    "otpSent": "OTP sent to your email.",
+    "emailVerified": "Email verified! You can now login.",
+    "sync": "Sync",
+    "lastStep": "One last step.",
+    "enterOtp": "Enter the 6-digit code sent to your email.",
+    "verificationCode": "Verification Code",
+    "verifyAndSignIn": "Verify & Sign In",
+    "didntReceiveCode": "Didn't receive a code?",
+    "resend": "Resend"
+  },
+  "dashboard": {
+    "myDocuments": "My Documents",
+    "manageProjects": "Manage your projects and collaborations.",
+    "newDocument": "New Document",
+    "noDocuments": "You don't have any documents yet. Create one to get started!",
+    "docTitle": "Document Title",
+    "enterDocTitle": "Enter document title...",
+    "confirmDelete": "Are you sure you want to delete \"{{title}}\"? This action cannot be undone.",
+    "failedToCreate": "Failed to create document",
+    "deletedSuccess": "Document deleted successfully",
+    "failedToDelete": "Failed to delete document",
+    "deleteDocument": "Delete Document"
+  },
+  "profile": {
+    "editProfile": "Edit Profile",
+    "username": "Username",
+    "emailAddress": "Email Address",
+    "saveChanges": "Save Changes",
+    "profileUpdated": "Profile updated successfully!",
+    "failedToUpdate": "Failed to update profile",
+    "clickToChangeAvatar": "Click the camera to change avatar",
+    "failedToUploadAvatar": "Failed to upload avatar"
+  },
+  "document": {
+    "untitled": "Untitled Document",
+    "noContent": "No content yet.",
+    "updatedAt": "Updated {{date}}",
+    "membersCount": "{{count}} Member",
+    "membersCount_plural": "{{count}} Members"
+  },
+  "editor": {
+    "saved": "Saved",
+    "saving": "Saving...",
+    "offline": "Offline",
+    "startTyping": "Start typing..."
+  }
 }
