@@ -1,21 +1,24 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { LogOut, Settings, User } from 'lucide-react';
+import { LogOut, Settings, User, Languages } from 'lucide-react';
 import Logo from '../Logo/Logo';
 import Dropdown from '../Dropdown/Dropdown';
 import ProfileModal from '../ProfileModal/ProfileModal';
-import LanguageSwitcher from '../LanguageSwitcher/LanguageSwitcher';
 import s from './Navbar.module.css';
 
 const Navbar = ({ user, logout }) => {
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
     const [showProfile, setShowProfile] = useState(false);
+
+    const toggleLanguage = (e) => {
+        const newLang = i18n.language === 'en' ? 'ar' : 'en';
+        i18n.changeLanguage(newLang);
+    };
 
     return (
         <nav className={s.navbar}>
             <Logo size="sm" />
             <div className={s.navRight}>
-                <LanguageSwitcher />
                 <div className={s.userNav}>
                     <Dropdown
                         trigger={
@@ -37,6 +40,13 @@ const Navbar = ({ user, logout }) => {
                         <Dropdown.Item icon={Settings} onClick={() => setShowProfile(true)}>
                             {t('auth.profileSettings', { defaultValue: 'Profile Settings' })}
                         </Dropdown.Item>
+
+                        <Dropdown.Item icon={Languages} onClick={toggleLanguage}>
+                            {i18n.language === 'en' ? 'العربية' : 'English'}
+                        </Dropdown.Item>
+
+                        <div className={s.divider}></div>
+
                         <Dropdown.Item icon={LogOut} variant="danger" onClick={logout}>
                             {t('auth.logout')}
                         </Dropdown.Item>
