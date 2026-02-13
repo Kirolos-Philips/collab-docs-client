@@ -1,0 +1,152 @@
+import { useState, useEffect, useMemo, useRef, useCallback } from 'react';
+import * as Y from 'yjs';
+
+export const useCollaboration = (id) => {
+  const [activeUsers, setActiveUsers] = useState(new Map());
+  const [isConnected, setIsConnected] = useState(false);
+  const [content, setContent] = useState('');
+
+  const ws = useRef(null);
+  const reconnectTimeout = useRef(null);
+  const reconnectAttempts = useRef(0);
+
+  // Yjs Setup
+  const ydoc = useMemo(() => new Y.Doc(), []);
+  const ytext = useMemo(() => ydoc.getText('content'), [ydoc]);
+
+  const handleRemotePresence = useCallback((data) => {
+    setActiveUsers((prev) => {
+      const next = new Map(prev);
+      next.set(data.user_id, {
+        username: data.username,
+        avatar_url: data.avatar_url,
+        color: data.color || '#2563eb',
+        lastSeen: Date.now(),
+      });
+      return next;
+    });
+  }, []);
+
+  const connectWS = useCallback(() => {
+    if (
+      ws.current?.readyState === WebSocket.OPEN ||
+      ws.current?.readyState === WebSocket.CONNECTING
+    )
+      return;
+
+    const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+    const host = window.location.hostname === 'localhost' ? 'localhost:8000' : window.location.host;
+    const token = localStorage.getItem('access_token');
+    const url = `${protocol}//${host}/documents/${id}/sync?token=${token}`;
+
+    console.log('Connecting to WS:', url);
+    const socket = new WebSocket(url);
+    ws.current = socket;
+
+    socket.onopen = () => {
+      if (socket !== ws.current) return;
+      console.log('WebSocket Connected');
+      setIsConnected(true);
+      reconnectAttempts.current = 0;
+    };
+
+    socket.onmessage = (event) => {
+      if (socket !== ws.current) return;
+      try {
+        const message = JSON.parse(event.data);
+
+        if (message.type === 'sync_state' || message.type === 'update') {
+          const updateB64 = message.state || message.update;
+          if (updateB64) {
+            const binaryUpdate = Uint8Array.from(atob(updateB64), (c) => c.charCodeAt(0));
+            Y.applyUpdate(ydoc, binaryUpdate, 'socket');
+          }
+        } else if (message.type === 'presence') {
+          handleRemotePresence(message);
+        }
+      } catch (error) {
+        console.error('Failed to process WS message:', error);
+      }
+    };
+
+    socket.onclose = (event) => {
+      if (socket !== ws.current) return;
+      console.log('WebSocket Disconnected', event.code, event.reason);
+      ws.current = null;
+      setIsConnected(false);
+
+      // Reconnect logic
+      if (reconnectAttempts.current < 5) {
+        reconnectAttempts.current += 1;
+        const delay = Math.min(10000, 2000 * reconnectAttempts.current);
+        reconnectTimeout.current = setTimeout(connectWS, delay);
+      }
+    };
+
+    socket.onerror = (error) => {
+      if (socket !== ws.current) return;
+      console.error('WebSocket Error:', error);
+    };
+  }, [id, ydoc, handleRemotePresence]);
+
+  useEffect(() => {
+    connectWS();
+
+    // Yjs Update Observer (Outbound)
+    const handleYdocUpdate = (update, origin) => {
+      if (origin !== 'socket' && ws.current?.readyState === WebSocket.OPEN) {
+        const updateB64 = btoa(String.fromCharCode(...update));
+        ws.current.send(JSON.stringify({ type: 'update', update: updateB64 }));
+      }
+    };
+
+    // Text Sync (Inbound)
+    const handleTextUpdate = () => {
+      const currentVal = ytext.toString();
+      setContent(currentVal);
+    };
+
+    ydoc.on('update', handleYdocUpdate);
+    ytext.observe(handleTextUpdate);
+
+    // Initial content
+    setContent(ytext.toString());
+
+    // Heartbeat/Presence interval
+    const presenceInterval = setInterval(() => {
+      if (ws.current?.readyState === WebSocket.OPEN) {
+        ws.current.send(JSON.stringify({ type: 'presence' }));
+      }
+    }, 3000);
+
+    return () => {
+      clearInterval(presenceInterval);
+      if (reconnectTimeout.current) clearTimeout(reconnectTimeout.current);
+      ydoc.off('update', handleYdocUpdate);
+      ytext.unobserve(handleTextUpdate);
+      if (ws.current) {
+        ws.current.close();
+        ws.current = null;
+      }
+      ydoc.destroy();
+    };
+  }, [id, ydoc, ytext, connectWS]);
+
+  const updateContent = useCallback((newContent) => {
+    setContent(newContent);
+    ydoc.transact(() => {
+      const currentVal = ytext.toString();
+      if (newContent !== currentVal) {
+        ytext.delete(0, ytext.length);
+        ytext.insert(0, newContent);
+      }
+    });
+  }, [ydoc, ytext]);
+
+  return {
+    content,
+    updateContent,
+    activeUsers,
+    isConnected,
+  };
+};
