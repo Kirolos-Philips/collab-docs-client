@@ -82,7 +82,7 @@ const Editor = () => {
         handleTitleKeyDown={handleTitleKeyDown}
         isSaving={isSaving}
         isConnected={isConnected}
-        activeUsersCount={activeUsers.size}
+        activeUsers={activeUsers}
         navigate={navigate}
         t={t}
       />

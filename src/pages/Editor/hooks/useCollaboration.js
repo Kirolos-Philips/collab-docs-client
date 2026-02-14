@@ -1,7 +1,9 @@
 import { useState, useEffect, useMemo, useRef, useCallback } from 'react';
 import * as Y from 'yjs';
+import { useAuth } from '../../../contexts/AuthContext';
 
 export const useCollaboration = (id) => {
+  const { user } = useAuth();
   const [activeUsers, setActiveUsers] = useState(new Map());
   const [isConnected, setIsConnected] = useState(false);
   const [content, setContent] = useState('');
@@ -114,13 +116,37 @@ export const useCollaboration = (id) => {
 
     // Heartbeat/Presence interval
     const presenceInterval = setInterval(() => {
-      if (ws.current?.readyState === WebSocket.OPEN) {
-        ws.current.send(JSON.stringify({ type: 'presence' }));
+      if (ws.current?.readyState === WebSocket.OPEN && user) {
+        ws.current.send(
+          JSON.stringify({
+            type: 'presence',
+            username: user.username,
+            avatar_url: user.avatar_url,
+            color: user.color, // Assuming user might have a color
+          })
+        );
       }
     }, 3000);
 
+    // Stale users cleanup
+    const cleanupInterval = setInterval(() => {
+      const now = Date.now();
+      setActiveUsers((prev) => {
+        const next = new Map(prev);
+        let changed = false;
+        for (const [userId, data] of next.entries()) {
+          if (now - data.lastSeen > 10000) {
+            next.delete(userId);
+            changed = true;
+          }
+        }
+        return changed ? next : prev;
+      });
+    }, 5000);
+
     return () => {
       clearInterval(presenceInterval);
+      clearInterval(cleanupInterval);
       if (reconnectTimeout.current) clearTimeout(reconnectTimeout.current);
       ydoc.off('update', handleYdocUpdate);
       ytext.unobserve(handleTextUpdate);
