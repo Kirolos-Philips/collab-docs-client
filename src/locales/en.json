@@ -7,7 +7,8 @@
     "create": "Create",
     "save": "Save",
     "actions": "Actions",
-    "back": "Back"
+    "back": "Back",
+    "you": "You"
   },
   "auth": {
     "login": "Login",

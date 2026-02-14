@@ -1,5 +1,6 @@
 import React from 'react';
 import { ArrowLeft, Cloud, Users, Loader2 } from 'lucide-react';
+import { useAuth } from '../../../contexts/AuthContext';
 import s from '../Editor.module.css';
 
 const EditorHeader = ({
@@ -9,10 +10,25 @@ const EditorHeader = ({
   handleTitleKeyDown,
   isSaving,
   isConnected,
-  activeUsersCount,
+  activeUsers,
   navigate,
   t,
 }) => {
+  const { user } = useAuth();
+  const currentUserId = user?.id || user?._id;
+
+  const usersArray = Array.from(activeUsers.entries())
+    .map(([id, data]) => ({
+      id,
+      ...data,
+      isMe: id === currentUserId,
+    }))
+    .sort((a, b) => (a.isMe ? 1 : -1));
+
+  const maxVisible = 3;
+  const visibleUsers = usersArray.slice(0, maxVisible);
+  const remainingCount = usersArray.length - maxVisible;
+
   return (
     <header className={s.header}>
       <div className={s.headerLeft}>
@@ -55,7 +71,31 @@ const EditorHeader = ({
         </div>
 
         <div className={s.collaboration}>
-          <Users size={20} color={activeUsersCount > 1 ? 'var(--primary)' : 'var(--text-muted)'} />
+          <div className={s.avatarList}>
+            {visibleUsers.map((u, i) => (
+              <div
+                key={u.id || i}
+                className={`${s.avatarItem} ${u.isMe ? s.currentUserAvatar : ''}`}
+                style={{
+                  borderColor: u.color || 'var(--primary)',
+                  zIndex: visibleUsers.length - i,
+                }}
+                title={
+                  u.isMe
+                    ? `${u.username} (${t('common.you', { defaultValue: 'You' })})`
+                    : u.username
+                }
+              >
+                {u.avatar_url ? (
+                  <img src={u.avatar_url} alt={u.username} />
+                ) : (
+                  <span>{u.username?.charAt(0).toUpperCase()}</span>
+                )}
+              </div>
+            ))}
+            {remainingCount > 0 && <div className={s.avatarMore}>+{remainingCount}</div>}
+            {usersArray.length === 0 && <Users size={20} color="var(--text-muted)" />}
+          </div>
         </div>
       </div>
     </header>
