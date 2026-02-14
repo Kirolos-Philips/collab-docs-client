@@ -1,5 +1,6 @@
 import React from 'react';
 import { ArrowLeft, Cloud, Users, Loader2 } from 'lucide-react';
+import { useAuth } from '../../../contexts/AuthContext';
 import s from '../Editor.module.css';
 
 const EditorHeader = ({
@@ -13,7 +14,17 @@ const EditorHeader = ({
   navigate,
   t,
 }) => {
-  const usersArray = Array.from(activeUsers.values());
+  const { user } = useAuth();
+  const currentUserId = user?.id || user?._id;
+
+  const usersArray = Array.from(activeUsers.entries())
+    .map(([id, data]) => ({
+      id,
+      ...data,
+      isMe: id === currentUserId,
+    }))
+    .sort((a, b) => (a.isMe ? 1 : -1));
+
   const maxVisible = 3;
   const visibleUsers = usersArray.slice(0, maxVisible);
   const remainingCount = usersArray.length - maxVisible;
@@ -63,13 +74,17 @@ const EditorHeader = ({
           <div className={s.avatarList}>
             {visibleUsers.map((u, i) => (
               <div
-                key={i}
-                className={s.avatarItem}
+                key={u.id || i}
+                className={`${s.avatarItem} ${u.isMe ? s.currentUserAvatar : ''}`}
                 style={{
                   borderColor: u.color || 'var(--primary)',
                   zIndex: visibleUsers.length - i,
                 }}
-                title={u.username}
+                title={
+                  u.isMe
+                    ? `${u.username} (${t('common.you', { defaultValue: 'You' })})`
+                    : u.username
+                }
               >
                 {u.avatar_url ? (
                   <img src={u.avatar_url} alt={u.username} />
