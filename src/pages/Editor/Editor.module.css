@@ -120,13 +120,8 @@
   flex: 1;
   width: 100%;
   border: none;
-  resize: none;
-  padding: 40px;
-  font-size: 1.1rem;
-  font-family: inherit;
-  line-height: 1.6;
+  overflow: hidden;
   color: var(--text-main);
-  outline: none;
 }
 
 .avatarList {
@@ -186,4 +181,96 @@
   font-weight: 600;
   color: var(--text-muted);
   z-index: 0;
+}
+
+/* ── Tablet ── */
+@media (max-width: 768px) {
+  .header {
+    padding: 0 16px;
+    height: 56px;
+  }
+
+  .headerLeft {
+    gap: 10px;
+  }
+
+  .docTitle {
+    font-size: 1.05rem;
+    min-width: 140px;
+    padding: 4px 8px;
+  }
+
+  .contentArea {
+    padding: 20px;
+  }
+
+  .editorContainer {
+    border-radius: 6px;
+  }
+
+  .headerRight {
+    gap: 12px;
+  }
+
+  .syncStatus {
+    font-size: 0.78rem;
+  }
+}
+
+/* ── Mobile ── */
+@media (max-width: 480px) {
+  .header {
+    padding: 0 12px;
+    height: 48px;
+  }
+
+  .headerLeft {
+    gap: 8px;
+  }
+
+  .backBtn {
+    width: 32px;
+    height: 32px;
+  }
+
+  .docTitle {
+    font-size: 0.95rem;
+    min-width: 100px;
+    padding: 4px 6px;
+  }
+
+  .contentArea {
+    padding: 0;
+    background: #ffffff;
+  }
+
+  .editorContainer {
+    box-shadow: none;
+    border-radius: 0;
+  }
+
+  .headerRight {
+    gap: 8px;
+  }
+
+  .avatarItem {
+    width: 26px;
+    height: 26px;
+    font-size: 0.7rem;
+  }
+
+  .currentUserAvatar {
+    transform: scale(1.2);
+    margin-right: 4px;
+  }
+
+  .avatarMore {
+    width: 26px;
+    height: 26px;
+    font-size: 0.65rem;
+  }
+
+  .syncStatus {
+    font-size: 0.72rem;
+  }
 }

@@ -1,4 +1,5 @@
 import { useState, useEffect, useMemo, useRef, useCallback } from 'react';
+// Note: 'content' state removed — CodeMirror binds directly to ytext via yCollab
 import * as Y from 'yjs';
 import { useAuth } from '../../../contexts/AuthContext';
 
@@ -6,7 +7,6 @@ export const useCollaboration = (id) => {
   const { user } = useAuth();
   const [activeUsers, setActiveUsers] = useState(new Map());
   const [isConnected, setIsConnected] = useState(false);
-  const [content, setContent] = useState('');
 
   const ws = useRef(null);
   const reconnectTimeout = useRef(null);
@@ -102,17 +102,7 @@ export const useCollaboration = (id) => {
       }
     };
 
-    // Text Sync (Inbound)
-    const handleTextUpdate = () => {
-      const currentVal = ytext.toString();
-      setContent(currentVal);
-    };
-
     ydoc.on('update', handleYdocUpdate);
-    ytext.observe(handleTextUpdate);
-
-    // Initial content
-    setContent(ytext.toString());
 
     // Heartbeat/Presence interval
     const presenceInterval = setInterval(() => {
@@ -149,29 +139,17 @@ export const useCollaboration = (id) => {
       clearInterval(cleanupInterval);
       if (reconnectTimeout.current) clearTimeout(reconnectTimeout.current);
       ydoc.off('update', handleYdocUpdate);
-      ytext.unobserve(handleTextUpdate);
       if (ws.current) {
         ws.current.close();
         ws.current = null;
       }
       ydoc.destroy();
     };
-  }, [id, ydoc, ytext, connectWS]);
-
-  const updateContent = useCallback((newContent) => {
-    setContent(newContent);
-    ydoc.transact(() => {
-      const currentVal = ytext.toString();
-      if (newContent !== currentVal) {
-        ytext.delete(0, ytext.length);
-        ytext.insert(0, newContent);
-      }
-    });
-  }, [ydoc, ytext]);
+  }, [id, ydoc, ytext, connectWS, user]);
 
   return {
-    content,
-    updateContent,
+    ydoc,
+    ytext,
     activeUsers,
     isConnected,
   };

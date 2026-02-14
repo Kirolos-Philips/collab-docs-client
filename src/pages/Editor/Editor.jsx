@@ -20,7 +20,7 @@ const Editor = () => {
   const [isSaving, setIsSaving] = useState(false);
 
   // Collaboration Hook
-  const { content, updateContent, activeUsers, isConnected } = useCollaboration(id);
+  const { ytext, activeUsers, isConnected } = useCollaboration(id);
 
   const fetchDocument = useCallback(async () => {
     try {
@@ -61,10 +61,6 @@ const Editor = () => {
     }
   };
 
-  const handleContentChange = (e) => {
-    updateContent(e.target.value);
-  };
-
   if (loading) {
     return (
       <div className="loading-screen">
@@ -87,7 +83,7 @@ const Editor = () => {
         t={t}
       />
 
-      <EditorTextArea content={content} handleContentChange={handleContentChange} t={t} />
+      <EditorTextArea ytext={ytext} t={t} />
     </div>
   );
 };
