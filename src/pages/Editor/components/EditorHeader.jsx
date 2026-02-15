@@ -1,21 +1,40 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ArrowLeft, Cloud, Users, Loader2 } from 'lucide-react';
+import API from '../../../api/client';
 import { useAuth } from '../../../contexts/AuthContext';
+import { useToast } from '../../../contexts/ToastContext';
 import s from '../Editor.module.css';
 
-const EditorHeader = ({
-  title,
-  handleTitleChange,
-  handleTitleBlur,
-  handleTitleKeyDown,
-  isSaving,
-  isConnected,
-  activeUsers,
-  navigate,
-  t,
-}) => {
+const EditorHeader = ({ id, initialTitle, isConnected, activeUsers, navigate, t }) => {
   const { user } = useAuth();
+  const { showToast } = useToast();
   const currentUserId = user?.id || user?._id;
+
+  const [title, setTitle] = useState(initialTitle);
+  const [isSaving, setIsSaving] = useState(false);
+
+  const handleTitleChange = (e) => {
+    setTitle(e.target.value);
+  };
+
+  const handleTitleBlur = async () => {
+    if (!title.trim()) return;
+    setIsSaving(true);
+    try {
+      await API.patch(`/documents/${id}/`, { title: title.trim() });
+    } catch (error) {
+      console.error('Failed to update title:', error);
+      showToast(t('dashboard.failedToUpdate', { defaultValue: 'Failed to update title' }), 'error');
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
+  const handleTitleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      e.target.blur();
+    }
+  };
 
   const usersArray = Array.from(activeUsers.entries())
     .map(([id, data]) => ({

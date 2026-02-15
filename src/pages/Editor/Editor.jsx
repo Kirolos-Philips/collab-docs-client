@@ -14,10 +14,8 @@ const Editor = () => {
   const { t } = useTranslation();
   const { showToast } = useToast();
 
-  // Document state
-  const [title, setTitle] = useState('');
+  const [initialTitle, setInitialTitle] = useState('');
   const [loading, setLoading] = useState(true);
-  const [isSaving, setIsSaving] = useState(false);
 
   // Collaboration Hook
   const { ytext, activeUsers, isConnected } = useCollaboration(id);
@@ -25,7 +23,7 @@ const Editor = () => {
   const fetchDocument = useCallback(async () => {
     try {
       const data = await API.get(`/documents/${id}/`);
-      setTitle(data.title);
+      setInitialTitle(data.title);
       setLoading(false);
     } catch (error) {
       console.error('Failed to fetch document:', error);
@@ -38,29 +36,6 @@ const Editor = () => {
     fetchDocument();
   }, [fetchDocument]);
 
-  const handleTitleChange = (e) => {
-    setTitle(e.target.value);
-  };
-
-  const handleTitleBlur = async () => {
-    if (!title.trim()) return;
-    setIsSaving(true);
-    try {
-      await API.patch(`/documents/${id}/`, { title: title.trim() });
-    } catch (error) {
-      console.error('Failed to update title:', error);
-      showToast(t('dashboard.failedToUpdate', { defaultValue: 'Failed to update title' }), 'error');
-    } finally {
-      setIsSaving(false);
-    }
-  };
-
-  const handleTitleKeyDown = (e) => {
-    if (e.key === 'Enter') {
-      e.target.blur();
-    }
-  };
-
   if (loading) {
     return (
       <div className="loading-screen">
@@ -72,11 +47,8 @@ const Editor = () => {
   return (
     <div className={s.editorPage}>
       <EditorHeader
-        title={title}
-        handleTitleChange={handleTitleChange}
-        handleTitleBlur={handleTitleBlur}
-        handleTitleKeyDown={handleTitleKeyDown}
-        isSaving={isSaving}
+        id={id}
+        initialTitle={initialTitle}
         isConnected={isConnected}
         activeUsers={activeUsers}
         navigate={navigate}
