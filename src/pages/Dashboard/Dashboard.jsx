@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { Plus, FileX, Loader2 } from 'lucide-react';
+import { Plus, FileX, Loader2, Mail, ShieldCheck } from 'lucide-react';
 import API from '../../api/client';
 import { useAuth } from '../../contexts/AuthContext';
 import { useToast } from '../../contexts/ToastContext';
@@ -23,6 +23,11 @@ const Dashboard = () => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [docToDelete, setDocToDelete] = useState(null);
   const [deleting, setDeleting] = useState(false);
+  const [showCollabModal, setShowCollabModal] = useState(false);
+  const [collabDoc, setCollabDoc] = useState(null);
+  const [collabEmail, setCollabEmail] = useState('');
+  const [collabRole, setCollabRole] = useState('editor');
+  const [addingCollab, setAddingCollab] = useState(false);
 
   const { user, logout } = useAuth();
   const navigate = useNavigate();
@@ -89,6 +94,40 @@ const Dashboard = () => {
     }
   };
 
+  const handleAddCollaborator = (doc) => {
+    setCollabDoc(doc);
+    setCollabEmail('');
+    setCollabRole('editor');
+    setShowCollabModal(true);
+  };
+
+  const closeCollabModal = () => {
+    setShowCollabModal(false);
+    setCollabDoc(null);
+    setCollabEmail('');
+    setCollabRole('editor');
+  };
+
+  const submitCollaborator = async (e) => {
+    e.preventDefault();
+    if (!collabEmail.trim()) return;
+
+    setAddingCollab(true);
+    try {
+      await API.post(`/documents/${collabDoc.id}/collaborators`, {
+        email: collabEmail.trim(),
+        role: collabRole,
+      });
+      showToast(t('collaborator.addedSuccess'));
+      closeCollabModal();
+      fetchDocuments();
+    } catch (error) {
+      showToast(error.message || t('collaborator.failedToAdd'), 'error');
+    } finally {
+      setAddingCollab(false);
+    }
+  };
+
   if (loading) {
     return (
       <div className="loading-screen">
@@ -120,6 +159,7 @@ const Dashboard = () => {
                 document={doc}
                 onClick={(id) => navigate(`/editor/${id}`)}
                 onDelete={handleDeleteClick}
+                onAddCollaborator={handleAddCollaborator}
               />
             ))}
           </div>
@@ -179,6 +219,55 @@ const Dashboard = () => {
             {t('dashboard.deleteDocument', { defaultValue: 'Delete Document' })}
           </Button>
         </Modal.Actions>
+      </Modal>
+
+      {/* Add Collaborator Modal */}
+      <Modal
+        show={showCollabModal}
+        title={t('collaborator.addCollaborator')}
+        onClose={closeCollabModal}
+      >
+        <form onSubmit={submitCollaborator}>
+          <InputField
+            label={t('collaborator.email')}
+            icon={Mail}
+            type="email"
+            placeholder={t('collaborator.emailPlaceholder')}
+            value={collabEmail}
+            onChange={(e) => setCollabEmail(e.target.value)}
+            autoFocus
+            required
+          />
+          <div className={s.roleSelector}>
+            <label className={s.roleLabel}>{t('collaborator.role')}</label>
+            <div className={s.roleOptions}>
+              <button
+                type="button"
+                className={`${s.roleOption} ${collabRole === 'editor' ? s.roleActive : ''}`}
+                onClick={() => setCollabRole('editor')}
+              >
+                <ShieldCheck size={16} />
+                {t('collaborator.editor')}
+              </button>
+              <button
+                type="button"
+                className={`${s.roleOption} ${collabRole === 'viewer' ? s.roleActive : ''}`}
+                onClick={() => setCollabRole('viewer')}
+              >
+                <ShieldCheck size={16} />
+                {t('collaborator.viewer')}
+              </button>
+            </div>
+          </div>
+          <Modal.Actions>
+            <Button variant="secondary" onClick={closeCollabModal}>
+              {t('common.cancel')}
+            </Button>
+            <Button type="submit" loading={addingCollab} icon={Plus}>
+              {t('collaborator.add')}
+            </Button>
+          </Modal.Actions>
+        </form>
       </Modal>
     </div>
   );

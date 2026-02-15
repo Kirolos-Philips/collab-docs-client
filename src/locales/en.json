@@ -70,5 +70,16 @@
     "saving": "Saving...",
     "offline": "Offline",
     "startTyping": "Start typing..."
+  },
+  "collaborator": {
+    "addCollaborator": "Add Collaborator",
+    "email": "Email Address",
+    "emailPlaceholder": "Enter collaborator's email...",
+    "role": "Role",
+    "editor": "Editor",
+    "viewer": "Viewer",
+    "add": "Add",
+    "addedSuccess": "Collaborator added successfully!",
+    "failedToAdd": "Failed to add collaborator"
   }
 }

@@ -74,5 +74,16 @@
     "saving": "جاري الحفظ...",
     "offline": "أوفلاين",
     "startTyping": "ابدأ الكتابة هنا..."
+  },
+  "collaborator": {
+    "addCollaborator": "إضافة متعاون",
+    "email": "البريد الإلكتروني",
+    "emailPlaceholder": "أدخل بريد المتعاون...",
+    "role": "الدور",
+    "editor": "محرر",
+    "viewer": "مشاهد",
+    "add": "إضافة",
+    "addedSuccess": "تمت إضافة المتعاون بنجاح!",
+    "failedToAdd": "فشل إضافة المتعاون"
   }
 }
