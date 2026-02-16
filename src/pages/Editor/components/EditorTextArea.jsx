@@ -49,16 +49,21 @@ const editorTheme = EditorView.theme({
   },
 });
 
-const EditorTextArea = ({ ytext, t }) => {
+const EditorTextArea = ({ ytext, awareness, t }) => {
   const editorRef = useRef(null);
   const viewRef = useRef(null);
 
   useEffect(() => {
-    if (!editorRef.current || !ytext) return;
+    if (!editorRef.current || !ytext || !awareness) return;
 
     const state = EditorState.create({
       doc: ytext.toString(),
-      extensions: [basicSetup, editorTheme, yCollab(ytext), EditorView.lineWrapping],
+      extensions: [
+        basicSetup,
+        editorTheme,
+        yCollab(ytext, awareness), // Pass awareness for cursor rendering
+        EditorView.lineWrapping,
+      ],
     });
 
     const view = new EditorView({
@@ -72,7 +77,7 @@ const EditorTextArea = ({ ytext, t }) => {
       view.destroy();
       viewRef.current = null;
     };
-  }, [ytext]);
+  }, [ytext, awareness]);
 
   return (
     <main className={s.contentArea}>

@@ -18,7 +18,7 @@ const Editor = () => {
   const [loading, setLoading] = useState(true);
 
   // Collaboration Hook
-  const { ytext, activeUsers, isConnected } = useCollaboration(id);
+  const { ytext, awareness, activeUsers, isConnected } = useCollaboration(id);
 
   const fetchDocument = useCallback(async () => {
     try {
@@ -55,7 +55,7 @@ const Editor = () => {
         t={t}
       />
 
-      <EditorTextArea ytext={ytext} t={t} />
+      <EditorTextArea ytext={ytext} awareness={awareness} t={t} />
     </div>
   );
 };
